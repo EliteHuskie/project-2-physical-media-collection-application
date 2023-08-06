@@ -16,8 +16,8 @@ Show.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    director: {
-      type: DataTypes.STRING,
+    seasons: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     description: {
