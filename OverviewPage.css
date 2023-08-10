@@ -13,7 +13,7 @@ body {
 }
 
 .background-display {
-    background-image: linear-gradient(rgb(11, 17, 125), rgb(4, 14, 57), black);
+    background-color: rgb(207, 210, 250);
     height: 1000px;
 }
 
@@ -72,30 +72,69 @@ header h1 {
     cursor: pointer;
 }
 
-/* Background styles */
-
 .who {
-    height: 400px;
+    height: 600px;
     border: rgb(47, 45, 45) 7px solid;
     color: red;
     font-size: 22px;
     position: relative;
     top: 40px;
-    width: 90%;
-    right: 0px;
     margin: 0 auto;
 }
 
 .who h2 { 
     position: relative;
-    top: 45px;
+    top: 350px;
     left: 30px;
     color: rgb(255, 0, 0);
 }
 
 .who h3 {
     position: relative;
-    top: 45px;
+    top: 360px;
     left: 30px;
     color: rgb(255, 0, 0);
 }
+
+.posters-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .posters {
+    display: flex;
+    width: moz-fit-content;
+    height: 100%;
+    transition: transform 0.3s ease;
+  }
+  
+  .posters img {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+    margin-right: 20px;
+  }
+  
+  .scroll-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .arrow-up, .arrow-down {
+    width: 20px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .arrow-down {
+    transform: rotate(180deg);
+  }

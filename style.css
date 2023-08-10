@@ -1,11 +1,10 @@
-/* Apply a CSS reset to ensure consistent rendering across browsers */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Global styles */
+
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -13,7 +12,6 @@ body {
     background-color: #ffffff;
 }
 
-/* Header styles */
 header {
     display: flex;
     flex-direction: row;
@@ -32,23 +30,26 @@ nav {
     font-size: 20px;
 }
 
-/* Navigation styles */
+
 nav ul {
     list-style-type: none;
 }
 
-nav ul li {
-    display: inline-block;
-    margin-left: 25px;
+.SignUpButton{
+    font-size: 30px;
+    position: absolute;
+    top: 6%;
+    right: 75px;
+    transform: translate(0, -50%);
+    cursor: pointer;
 }
 
-/* Background styles */
 .background-display {
     background-image: linear-gradient(rgb(11, 17, 125), rgb(4, 14, 57), black);
     height: 1000px;
 }
 
-/* Authentication page styles */
+
 .authentication {
     background-image: linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0), black);
     height: 500px;
