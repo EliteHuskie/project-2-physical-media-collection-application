@@ -3,8 +3,7 @@ const { Collection } = require("../../models");
 
 const cloudinaryUpload = require("../../services/cloudinary-upload");
 
-// ---- upload to cloudinary ---- //
-
+// upload to cloudinary and update Collection to include image url
 router.post("/:id", async (req, res) => {
   try {
     const image = req.body.image;
