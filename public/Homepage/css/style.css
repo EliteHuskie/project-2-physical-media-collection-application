@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;   
+}
+
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: hsl(0, 0%, 20%);
+    background-color: #ffffff;
+}
+
+/* Header styles */
+header {
+    background-image: linear-gradient(rgb(25, 26, 71), rgb(9, 9, 17), rgb(7, 12, 56));
+    height: 100px;
+    text-align: left;
+    color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-box {
+    display: flex;
+    border-right: 10px;
+    margin-right: 20px;
+    padding-right: 20px;
+}
+
+/* Search bar styles */
+nav {
+    display: flex;
+    margin: 10px;
+    height: 100px;
+}
+
+/* Main part styles */
+h4 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: rgb(224, 219, 219);
+
+}
+.card :hover {
+    transform: scale(1.05)
+}
+
+/* footer styles */
+.footer_bar {
+    color: aliceblue;
+    background-color: rgb(42, 39, 39);
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+}
+
+.logo {
+    color:white ;
+    font-size: 40px;
+}
+
+.logo span {
+    color: blueviolet;
+}
+
+.footer_bar ul {
+    list-style: none;
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.footer_bar ul li {
+    padding: 10px 30px;
+}
+
+#copyright {
+    font-size: 10px;
+    margin-bottom: 0;
+}
