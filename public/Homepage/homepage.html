@@ -23,46 +23,127 @@
             <div>
                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-plus-square" title="Add a media"></i></button>
                 <ul class="dropdown-menu">
-                   <li><a class="dropdown-item addBook" href="#">Add a book</a></li>
-                   <li><a class="dropdown-item addMovie" href="#">Add a movie</a></li>
-                   <li><a class="dropdown-item addTVshow" href="#">Add a TV show</a></li>
+                   <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addBook">Add a book</a></li>
+                   <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addMovie">Add a movie</a></li>
+                   <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addTVshow">Add a TV show</a></li>
                 </ul>
+            </div>
+            <!-- add a book dialog -->
+            <div class="modal fade" id="addBook" style="background-color: whitesmoke;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                      <!-- header -->
+                       <div class="modal-header">
+                          <h3 style="color: blue;">Add a book</h3>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                       </div>
+                      <!-- body -->
+                       <div class="modal-body">
+                          <form action="">
+                            <div class="form-group">
+                               <label for="" style="color: blue;">Name</label>
+                               <input type="text" class="collection form-control" >
+                               <label for="" style="color: blue;">Author</label>
+                               <input type="text" class="collection form-control" >
+                               <label for="" style="color: blue;">Image</label>
+                               <input type="image" class="collection form-control" >
+                               <label for="" style="color: blue;">Description</label>
+                               <input type="text" class="collection form-control" >
+                            </div> 
+                          </form>
+                          <button type="button" class="btn btn-success">Save</button>  
+                        </div>          
+                   </div> 
+                </div>
+            </div>
+             <!-- add a movie dialog -->
+             <div class="modal fade" id="addMovie" style="background-color: whitesmoke;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                      <!-- header -->
+                       <div class="modal-header">
+                          <h3 style="color: blue;">Add a movie</h3>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                       </div>
+                      <!-- body -->
+                       <div class="modal-body">
+                          <form action="">
+                            <div class="form-group">
+                               <label for="" style="color: blue;">Name</label>
+                               <input type="text" class="collection form-control" >
+                               <label for="" style="color: blue;">Director</label>
+                               <input type="text" class="collection form-control" >
+                               <label for="" style="color: blue;">Image</label>
+                               <input type="image" class="collection form-control" >
+                               <label for="" style="color: blue;">Description</label>
+                               <input type="text" class="collection form-control" >
+                            </div> 
+                          </form>
+                          <button type="button" class="btn btn-success">Save</button>  
+                        </div>          
+                   </div> 
+                </div>
+            </div>
+             <!-- add a TV show dialog -->
+             <div class="modal fade" id="addTVshow" style="background-color: whitesmoke;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                      <!-- header -->
+                       <div class="modal-header">
+                          <h3 style="color: blue;">Add a TV show</h3>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                       </div>
+                      <!-- body -->
+                       <div class="modal-body">
+                          <form action="">
+                            <div class="form-group">
+                               <label for="" style="color: blue;">Name</label>
+                               <input type="text" class="collection form-control" >
+                               <label for="" style="color: blue;">Director</label>
+                               <input type="text" class="collection form-control" >
+                               <label for="" style="color: blue;">Image</label>
+                               <input type="image" class="collection form-control" >
+                               <label for="" style="color: blue;">Description</label>
+                               <input type="text" class="collection form-control" >
+
+                            </div> 
+                          </form>
+                          <button type="button" class="btn btn-success">Save</button>  
+                        </div>          
+                   </div> 
+                </div>
             </div>
             <!-- my collection dropdown button -->
             <div class="my-collection">
                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-collection-fill" title="My collection"></i></button>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">My collection</a></li>
-                    <li><a class="dropdown-item createCollection" href="#">Creat a collection</a></li>
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#createCollection">Creat a collection</a></li>
                     <li><a class="dropdown-item" href="#">Edit a collection</a></li>
                     <li><a class="dropdown-item" href="#">Delete a collection</a></li>
                 </ul>
             </div>
-            <!-- dropdown creat a collection -->
-         
-            <script type="text/template" id="tpl_addCollection_dom">
-                <div class="modal fade show in addCollection_dom" style="background-color: rgba(0, 0, 0, 0.75);">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4>Creat a collection</h4>
-                                <button type="button" class="close">×</button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="mb-3 row">
-                                <label for="collectionName" class="col-sm-2 col-form-label">Name:</label>
-                                <div class="col-sm-10">
-                                  <input type="text" class="form-control" placeholder=" " id="collectionName" value="">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-success">Save</button>
-                            </div>
-                        </div>
-                    </div>
+            <!--  creat a collection dialog-->
+            <div class="modal fade" id="createCollection" style="background-color: whitesmoke;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                      <!-- header -->
+                       <div class="modal-header">
+                          <h3 style="color: blue;">Creat a collection</h3>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                       </div>
+                      <!-- body -->
+                       <div class="modal-body">
+                          <form action="">
+                            <label for="" style="color: blue;">Collection name</label>
+                            <input type="text" class="collection form-control" >
+                          </form>
+                          <button type="button" class="btn btn-success">Save</button>  
+                        </div>          
+                   </div> 
                 </div>
-            </script>
+            </div>
+
             <div class="my-account">
                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-circle" title="My account"></i></button>
                 <ul class="dropdown-menu">
@@ -103,7 +184,7 @@
                 </div>
             </div>
             <div class="container px-4 text-center row justify-content-left gap-2" >
-                    <button type="button" class="btn btn-outline-secondary">&lsaquo;</button>
+                    <button type="button" class="btn btn-outline-secondary" style="float: left;">&lsaquo;</button>
                 
                 <div class="card col-12 col-md-3" style="width: 15rem;">
                     <img src="./assets/image/Harry Potter Collection.jpg" class="card-img-top" alt="...">
