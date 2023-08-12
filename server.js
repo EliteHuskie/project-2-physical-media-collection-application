@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
 const routes = require("./controllers");
+const path = require("path");
 
 // import sequelize connection
 const sequelize = require("./config/connection");
@@ -20,6 +21,18 @@ app.use(session(sess));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static("public"));
+
+app.get("/", (req, res) =>
+  res.sendFile(path.join(__dirname, "public/index.html"))
+);
+app.get("/home", (req, res) =>
+  res.sendFile(path.join(__dirname, "public/homepage.html"))
+);
+app.get("/results", (req, res) =>
+  res.sendFile(path.join(__dirname, "public/search-result.html"))
+);
 
 app.use(routes);
 
