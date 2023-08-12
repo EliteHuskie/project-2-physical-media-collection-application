@@ -124,7 +124,7 @@ header {
   text-align: left;
   color: rgb(226, 228, 255);
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .header-box {
