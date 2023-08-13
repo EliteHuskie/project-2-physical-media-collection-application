@@ -12,15 +12,15 @@ Book.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    book_name: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    author: {
+    creator: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
+    overview: {
       type: DataTypes.TEXT,
       allowNull: true,
     },

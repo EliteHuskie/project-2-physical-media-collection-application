@@ -12,15 +12,15 @@ Show.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    show_name: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    seasons: {
-      type: DataTypes.INTEGER,
+    creator: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
+    overview: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
