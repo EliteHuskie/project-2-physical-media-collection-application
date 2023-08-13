@@ -12,11 +12,16 @@ const {
 
 // GET all of a user's collections
 router.get("/", async (req, res) => {
+  const userId = await User.findOne({
+    where: {
+      username: req.session.username,
+    },
+  });
   try {
     // get collections with included media information
     const dbCollectionData = await Collection.findAll({
       where: {
-        user_id: req.body.user_id,
+        user_id: userId.dataValues.id,
       },
       include: [{ model: Movie }, { model: Book }, { model: Show }],
     });
