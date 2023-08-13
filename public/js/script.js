@@ -1,7 +1,6 @@
 // Pre-requisites for the search to function properly
-require("dotenv").config();
-const tmdbApiKey = process.env.TMDB_API_KEY;
-const googleApiKey = process.env.GOOGLE_API_KEY;
+const tmdbApiKey = '818371936113359a4fd88312064667b0'
+const googleApiKey = 'AIzaSyCG-nyR7-vk8JJ1_jtKuGoedYTpx9aE2kI'
 
 // Function to search for the Movies + TV Shows that a user searches for
 async function searchMoviesAndTVShows() {
@@ -126,6 +125,21 @@ function handleSearchButtonClick() {
   const searchType = document.querySelector(
     'input[name="searchType"]:checked'
   ).value;
+
+  if (searchType === "moviesAndTVShows") {
+    searchMoviesAndTVShows();
+  } else if (searchType === "books") {
+    searchBooks();
+  }
+}
+
+function handleSearchFormSubmit() {
+  const searchType = document.querySelector('input[name="searchType"]:checked').value;
+  const searchInput = document.getElementById("searchInput").value;
+
+  // Clear previous search results
+  const resultsContainer = document.getElementById("searchResults");
+  resultsContainer.innerHTML = "";
 
   if (searchType === "moviesAndTVShows") {
     searchMoviesAndTVShows();
