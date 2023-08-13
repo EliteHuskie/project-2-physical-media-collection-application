@@ -54,6 +54,13 @@ function displayCollections(jsonData) {
       creatorEl.innerHTML = item.creator;
       paragraphEl.innerHTML = item.overview;
 
+      if (item.image_url) {
+        const imgEl = document.createElement("img");
+        imgEl.src = item.image_url;
+        imgEl.width = 200;
+        card.appendChild(imgEl);
+      }
+
       card.appendChild(titleEl);
       card.appendChild(creatorEl);
       card.appendChild(paragraphEl);
