@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Search result</title>
-    <link rel="stylesheet" href="./css/reset.css" />
     <link rel="stylesheet" href="./css/style.css" />
     <link
       rel="stylesheet"
@@ -63,23 +62,21 @@
     </header>
     <!--search-bar/all media-->
     <nav class="input-group w-50 position-relative search-bar">
-      <form
-        class="container-fluid input-group position-absolute top-50 start-50"
-      >
+      <form class="container-fluid input-group position-absolute top-50 start-50">
         <div class="input-group">
           <input
             type="text"
             class="form-control"
             id="searchInput"
-            search
+            name="q"
             placeholder="Input a book/movie/TV show"
             aria-label="Username"
             aria-describedby="basic-addon1"
           />
-          <button class="btn btn-outline-success" type="submit">Search</button>
-          <button class="btn btn-outline-success" type="search">
-            All media
-          </button>
+          <input type="radio" name="searchType" value="moviesAndTVShows" checked>Movies & TV Shows
+          <input type="radio" name="searchType" value="books"> Books
+          <button id="searchButton" class="btn btn-outline-success" type="button">Search</button>
+          <button class="btn btn-outline-success" type="button" onclick="navigateToSearchResults();">All media</button>
         </div>
       </form>
     </nav>
@@ -155,6 +152,6 @@
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
     ></script>
-    <script type="text/javascript" src="./js/script.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>
