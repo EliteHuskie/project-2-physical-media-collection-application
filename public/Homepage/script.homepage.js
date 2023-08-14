@@ -98,35 +98,52 @@ function handleSearchButtonClick() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const draggableButtons = document.querySelectorAll('.btn-outline-secondary');
-    const placeholderCards = document.querySelectorAll('.placeholder-card');
-    const leftButton = draggableButtons[0];
-    const rightButton = draggableButtons[1];
+const createNewBlockButton = document.getElementById('createNewBlockButton');
+    const existingContent = document.getElementById('existingContent');
 
-    leftButton.addEventListener('dragstart', (event) => {
-        event.dataTransfer.setData('text/plain', 'Drag me');
+    createNewBlockButton.addEventListener('click', function() {
+        // Create a new block of HTML code
+        const newBlock = document.createElement('div');
+        newBlock.innerHTML = `
+        <br>
+        <div class="container overRide">
+           <div class="content">
+               <section class="collection" style="background: #FFFFFF;">
+                   <div id="my-collection">
+                       <h4><a href="">Book Collection</a></h4>
+                   </div>
+                   
+               </section>
+           </div>
+           <div class="bar" style="position: absolute; top: 0; left: 0; width: 1px; height: 70%; background-color: #CCC;"></div>
+       </div>
+       
+       
+       
+         <div class="container overRide">
+        
+            <div class="container px-4 text-center row justify-content-left gap-2">
+        
+                 <div class="placeholder-card"></div>
+                 <div class="placeholder-card"></div>
+                 <div class="placeholder-card"></div>
+                 <div class="placeholder-card"></div>
+                 <div class="placeholder-card"></div>
+          
+            </div>
+        </div>
+    <br>
+        `;
+
+        // Append the new block to the existing content
+        existingContent.appendChild(newBlock);
+
+        // Set up an event listener for the "Create New Block" button within the new block
+        const newBlockCreateButton = newBlock.querySelector('.createNewBlockButton');
+        newBlockCreateButton.addEventListener('click', function() {
+            // Similar logic as before for creating and appending new blocks within this new block
+            // You can nest this logic as deeply as you need
+        });
     });
 
-    rightButton.addEventListener('dragstart', (event) => {
-        event.dataTransfer.setData('text/plain', 'Drag me');
-    });
 
-    placeholderCards.forEach((card) => {
-        card.addEventListener('dragover', (event) => {
-            event.preventDefault();
-            card.classList.add('highlight');
-        });
-
-        card.addEventListener('dragleave', () => {
-            card.classList.remove('highlight');
-        });
-
-        card.addEventListener('drop', (event) => {
-            event.preventDefault();
-            card.classList.remove('highlight');
-            const data = event.dataTransfer.getData('text/plain');
-            card.textContent = data;
-        });
-    });
-});
