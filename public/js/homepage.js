@@ -97,6 +97,27 @@ const popoverList = [...popoverTriggerList].map(
   (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
 );
 
+// Create a collection
+const collectionNameInputEl = document.getElementById("newCollectionName");
+const saveCollectionBttn = document.getElementById("saveNewCollection");
+
+saveCollectionBttn.addEventListener("click", (event) => {
+  const collectionName = collectionNameInputEl.value;
+
+  fetch("/api/collections", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ collection_name: collectionName }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      window.location.href = "/home";
+    });
+});
+
 // Contact us submit response
 $("#contactUsSubmit")
   .unbind()

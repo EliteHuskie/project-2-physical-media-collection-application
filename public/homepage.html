@@ -1,12 +1,26 @@
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Homepage</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous">
-  <link rel="stylesheet" href="./css/style.css" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Homepage</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
+      integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
 
 </head>
  
@@ -14,9 +28,53 @@
 <body>
   <div class="page-container">
 <!--header add a media/my collection/account -->
+  <body>
+    <!--header add a media/my collection/account -->
     <header class="header">
-        <div class="header-title">
-            <h1>MyTimeFillers.com</h1>
+      <div class="header-title">
+        <h1>MyTimeFillers.com</h1>
+      </div>
+      <div class="header-box gap-2 justify-content-md-end">
+        <!-- add a media -->
+        <div>
+          <button
+            class="btn btn-outline-secondary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="bi bi-plus-square" title="Add a media"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a
+                class="dropdown-item addBook"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#addBook"
+                >Add a book</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item addMoive"
+                href="#"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#addMovie"
+                >Add a movie</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item addTVshow"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#addTVshow"
+                >Add a TV show</a
+              >
+            </li>
+          </ul>
         </div>
         <div class="header-box gap-2 justify-content-md-end">
             <!-- add a media menu -->
@@ -242,8 +300,218 @@
              </div>
 
 
+        <!-- add a book dialog -->
+        <div
+          class="modal fade"
+          id="addBook"
+          style="background-color: whitesmoke"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- header -->
+              <div class="modal-header">
+                <h3 style="color: blue">Add a book</h3>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                ></button>
+              </div>
+              <!-- body -->
+              <div class="modal-body">
+                <form action="">
+                  <div class="form-group">
+                    <label for="" style="color: blue">Name</label>
+                    <input type="text" class="collection form-control" />
+                    <label for="" style="color: blue">Author</label>
+                    <input type="text" class="collection form-control" />
+                    <label for="" style="color: blue">Image</label>
+                    <input type="image" class="collection form-control" />
+                    <label for="" style="color: blue">Description</label>
+                    <input type="text" class="collection form-control" />
+                  </div>
+                </form>
+                <button type="button" class="btn btn-success">Save</button>
+              </div>
             </div>
+          </div>
         </div>
+        <!-- add a movie dialog -->
+        <div
+          class="modal fade"
+          id="addMovie"
+          style="background-color: whitesmoke"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- header -->
+              <div class="modal-header">
+                <h3 style="color: blue">Add a movie</h3>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                ></button>
+              </div>
+              <!-- body -->
+              <div class="modal-body">
+                <form action="">
+                  <div class="form-group">
+                    <label for="" style="color: blue">Name</label>
+                    <input type="text" class="collection form-control" />
+                    <label for="" style="color: blue">Director</label>
+                    <input type="text" class="collection form-control" />
+                    <label for="" style="color: blue">Image</label>
+                    <input type="image" class="collection form-control" />
+                    <label for="" style="color: blue">Description</label>
+                    <input type="text" class="collection form-control" />
+                  </div>
+                </form>
+                <button type="button" class="btn btn-success">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- add a TV show dialog -->
+        <div
+          class="modal fade"
+          id="addTVshow"
+          style="background-color: whitesmoke"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- header -->
+              <div class="modal-header">
+                <h3 style="color: blue">Add a TV show</h3>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                ></button>
+              </div>
+              <!-- body -->
+              <div class="modal-body">
+                <form action="">
+                  <div class="form-group">
+                    <label for="" style="color: blue">Name</label>
+                    <input type="text" class="collection form-control" />
+                    <label for="" style="color: blue">Director</label>
+                    <input type="text" class="collection form-control" />
+                    <label for="" style="color: blue">Image</label>
+                    <input type="image" class="collection form-control" />
+                    <label for="" style="color: blue">Description</label>
+                    <input type="text" class="collection form-control" />
+                  </div>
+                </form>
+                <button type="button" class="btn btn-success">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- my collection dropdown button -->
+        <div class="my-collection">
+          <button
+            class="btn btn-outline-secondary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="bi bi-collection-fill" title="My collection"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" id="myCollection" href="#"
+                >My collection</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item createCollection"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#createCollectionForm"
+                >Create a collection</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" id="editCollection" href="#"
+                >Edit a collection</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" id="deleteCollection" href="#"
+                >Delete a collection</a
+              >
+            </li>
+          </ul>
+        </div>
+        <!--  creat a collection dialog-->
+        <div
+          class="modal fade"
+          id="createCollectionForm"
+          style="background-color: whitesmoke"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- header -->
+              <div class="modal-header">
+                <h3 style="color: blue">Creat a collection</h3>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                ></button>
+              </div>
+              <!-- body -->
+              <div class="modal-body">
+                <form action="">
+                  <label for="" style="color: blue">Collection name</label>
+                  <input
+                    type="text"
+                    class="collection form-control"
+                    id="newCollectionName"
+                  />
+                </form>
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  id="saveNewCollection"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- my account drop down menu -->
+        <div class="my-account">
+          <button
+            class="btn btn-outline-secondary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="bi bi-person-circle" title="My account"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" id="myAccount" href="#">My account</a>
+            </li>
+            <li>
+              <a class="dropdown-item" id="editAccount" href="#"
+                >Edit my account</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" id="deleteMyAccount" href="#"
+                >Delete my account</a
+              >
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" id="signOut" href="#">Sign out</a></li>
+          </ul>
+        </div>
+      </div>
     </header>
 <!-- Search bar/All media -->
 <nav class="input-group w-50 position-relative search-bar">
@@ -259,7 +527,47 @@
 </nav>
 <!-- My collection container -->
 <div id="collectionsContainer">
-   <!-- <div class="container overRide", id="collectionContainer">
+    <!-- Search bar/All media -->
+    <nav class="input-group w-50 position-relative search-bar">
+      <form
+        class="container-fluid input-group position-absolute top-50 start-50"
+        action="./search-result.html"
+        method="get"
+      >
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            id="searchInput"
+            name="q"
+            placeholder="Input a book/movie/TV show"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+          />
+          <input
+            type="radio"
+            name="searchType"
+            value="moviesAndTVShows"
+            checked
+          />
+          Movies & TV Shows
+          <input type="radio" name="searchType" value="books" /> Books
+          <button
+            id="searchButton"
+            class="btn btn-outline-success"
+            type="submit"
+          >
+            Search
+          </button>
+          <button class="btn btn-outline-success" type="search">
+            All media
+          </button>
+        </div>
+      </form>
+    </nav>
+    <!-- My collection container -->
+    <div id="collectionsContainer">
+      <!-- <div class="container overRide", id="collectionContainer">
     <div class="content">
       <section class="collection" style="background: #FFFFFF;">
           <div id="my-collection">
@@ -280,102 +588,123 @@
 
     </div>    
    </div> -->
-</div>
-
-<!-- Collection container
-    <br>
-        <div class="container overRide">
-           <div class="content">
-               <section class="collection" style="background: #FFFFFF;">
-                   <div id="my-collection">
-                       <h4><a href="">Movie Collection</a></h4>
-                   </div>     
-               </section>
-           </div>
-           
-       </div>
-        
-        <div class="container overRide">
-        
-            <div class="container px-4 text-center row justify-content-left gap-2">
-                
-                 <div class="placeholder-card">
-                  <img src="" alt="">
-                  <h4 id="collectionName"></h4>
-                  <button id="editCollection">Edit</button>
-                  <button id="deleteCollection">Delete</button>                   
-                 </div>
-                 <div class="placeholder-card"></div>
-                 <div class="placeholder-card"></div>
-                 <div class="placeholder-card"></div>
-                 <div class="placeholder-card"></div>
-          
-            </div>
-        </div> -->
-
-    <!-- <br>
-
-    <br>
-        <div class="container overRide">
-           <div class="content">
-               <section class="collection" style="background: #FFFFFF;">
-                   <div id="my-collection">
-                       <h4><a href="">TV Show Collection</a></h4>
-                   </div>
-                   
-               </section>
-           </div>
-           <div class="bar" style="position: absolute; top: 0; left: 0; width: 1px; height: 70%; background-color: #CCC;"></div>
-       </div>
-       
-       
-       
-         <div class="container overRide">
-        
-            <div class="container px-4 text-center row justify-content-left gap-2">
-               
-                 <div class="placeholder-card"></div>
-                 <div class="placeholder-card"></div>
-                 <div class="placeholder-card"></div>
-                 <div class="placeholder-card"></div>
-                 <div class="placeholder-card"></div>
-            
-            </div>
+    </div>
+  </body>
+  <footer>
+    <div class="footer_bar">
+      <div id="logo"></div>
+      <div class="about-us">
+        <button
+          class="btn btn-primary"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasWithBothOptions"
+          aria-controls="offcanvasWithBothOptions"
+        >
+          About us
+        </button>
+        <div
+          class="offcanvas offcanvas-start"
+          data-bs-scroll="true"
+          tabindex="-1"
+          id="offcanvasWithBothOptions"
+          aria-labelledby="offcanvasWithBothOptionsLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
+              About us
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <p>
+              Physical Media Collection of Books, Movies and TV Shows.Users can
+              create, update and delete collections of Books, Movies and TV
+              Shows they have in their own collection
+            </p>
+          </div>
         </div>
-    <br>
-
-
-
-    <br>
-        <div class="container overRide">
-           <div class="content">
-               <section class="collection" style="background: #FFFFFF;">
-                   <div id="my-collection">
-                       <h4><a href="">Book Collection</a></h4>
-                   </div>
-                   
-               </section>
-           </div>
-           <div class="bar" style="position: absolute; top: 0; left: 0; width: 1px; height: 70%; background-color: #CCC;"></div>
-       </div>
-       
-       
-       
-         <div class="container overRide">
-        
-            <div class="container px-4 text-center row justify-content-left gap-2">
-        
-                 <div class="placeholder-card"></div>
-                 <div class="placeholder-card"></div>
-                 <div class="placeholder-card"></div>
-                 <div class="placeholder-card"></div>
-                 <div class="placeholder-card"></div>
-          
+      </div>
+      <div class="contact-us">
+        <button
+          class="btn btn-primary"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasWithBothOptions1"
+          aria-controls="offcanvasWithBothOptions1"
+        >
+          Contact us
+        </button>
+        <div
+          class="offcanvas offcanvas-start"
+          data-bs-scroll="true"
+          tabindex="-1"
+          id="offcanvasWithBothOptions1"
+          aria-labelledby="offcanvasWithBothOptions1Label"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasWithBothOptions1Label">
+              Contact us
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <div class="mb-3">
+              <label for="formGroupExampleInput" class="form-label">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="usernameInput"
+                placeholder=" "
+              />
             </div>
+            <div class="mb-3">
+              <label for="formGroupExampleInput2" class="form-label"
+                >Email</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="userEmailInput"
+                placeholder=" "
+              />
+            </div>
+            <div class="mb-3">
+              <label for="formGroupExampleInput2" class="form-label"
+                >Message</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="userMessageInput"
+                placeholder=" "
+              />
+            </div>
+            <div class="mb-3">
+              <p id="contactUsResponse"></p>
+              <button
+                type="button"
+                class="btn btn-success"
+                id="contactUsSubmit"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
         </div>
     <br> -->
     <footer>
-        <div class="footer_bar" style="display: ;">
+        <div class="footer_bar">
             <div id="logo">
                <h1 class="logo">Time<span style="color: blueviolet;">Fillers</span></h1>
             </div>
@@ -431,4 +760,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="js/script.js"></script>
     <script type="text/javascript" src="./js/homepage.js"></script>  
+</html>
+      </div>
+      <div id="copyright">
+        <p>©2023 MyTimeFillers Inc.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"
+  ></script>
+  <script src="js/script.js"></script>
+  <script type="text/javascript" src="./js/homepage.js"></script>
 </html>
