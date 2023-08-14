@@ -1,6 +1,7 @@
 // Pre-requisites for the search to function properly
-const tmdbApiKey = "api_key_tmdb";
-const googleApiKey = "api_key_google";
+require("dotenv").config();
+const tmdbApiKey = process.env.tmdbApiKey;
+const googleApiKey = process.env.googleApiKey;
 
 // Function to search for the Movies + TV Shows that a user searches for
 async function searchMoviesAndTVShows() {
