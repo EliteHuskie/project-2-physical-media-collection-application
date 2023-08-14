@@ -11,7 +11,7 @@ router.use("/upload-image", cloudinaryRoutes);
 router.use("/users", userRoutes);
 router.use("/movies", movieRoutes);
 router.use("/books", bookRoutes);
-router.use("/shows", showRoutes);
+router.use("/tvShows", showRoutes);
 router.use("/collections", collectionRoutes);
 
 module.exports = router;

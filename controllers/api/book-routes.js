@@ -1,15 +1,25 @@
 const router = require("express").Router();
 const { Book } = require("../../models");
 
-// GET a Book by id
-router.get("/:id", async (req, res) => {
+// GET a Book by id or name
+router.get("/:type/:query", async (req, res) => {
   try {
-    const dbBookData = await Book.findByPk(req.params.id);
+    let dbBookData;
+
+    if (req.params.type === "id") {
+      dbBookData = await Book.findByPk(req.params.query);
+    } else {
+      dbBookData = await Book.findOne({
+        where: {
+          name: req.params.query,
+        },
+      });
+    }
 
     if (!dbBookData) {
       res
         .status(404)
-        .json({ message: `No Book found with id: ${req.params.id}` });
+        .json({ message: `No Book found by: ${req.params.query}` });
     }
 
     res.status(200).json(dbBookData);

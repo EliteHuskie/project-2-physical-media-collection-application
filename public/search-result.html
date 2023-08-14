@@ -22,18 +22,44 @@
     <header class="header">
       <div class=" ">
         <h1>MyTimeFillers.com</h1>
-        <a href="./homepage.html" style="float: right;">Homepage</a>
+        <a href="/home" style="float: right">Homepage</a>
       </div>
     </header>
     <!--search-bar/all media-->
     <nav class="input-group w-50 position-relative search-bar">
-      <form class="container-fluid input-group position-absolute top-50 start-50" action="./search-result.html" method="get">
+      <form
+        class="container-fluid input-group position-absolute top-50 start-50"
+        action="./search-result.html"
+        method="get"
+      >
         <div class="input-group">
-            <button class="btn btn-outline-success" type="search">All media</button>
-            <button id="searchButton" class="btn btn-outline-success" type="submit">Search</button>
-            <input type="text" class="form-control" id="searchInput" name="q" placeholder="Input a book/movie/TV show" aria-label="Username" aria-describedby="basic-addon1" />
-            <input type="radio" name="searchType" value="moviesAndTVShows" checked> Movies & TV Shows
-            <input type="radio" name="searchType" value="books"> Books
+          <button class="btn btn-outline-success" type="search">
+            All media
+          </button>
+          <button
+            id="searchButton"
+            class="btn btn-outline-success"
+            type="button"
+          >
+            Search
+          </button>
+          <input
+            type="text"
+            class="form-control"
+            id="searchInput"
+            name="q"
+            placeholder="Input a book/movie/TV show"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+          />
+          <input
+            type="radio"
+            name="searchType"
+            value="moviesAndTVShows"
+            checked
+          />
+          Movies & TV Shows
+          <input type="radio" name="searchType" value="books" /> Books
         </div>
       </form>
     </nav>
@@ -63,11 +89,12 @@
 
     <br />
     <!--result-->
-    <div class="flex justify-content-center">
-      <div id="searchResults" class="list-group"></div>
+    <div>
+      <div
+        id="searchResults"
+        class="container px-4 text-center row justify-content-center gap-3"
+      ></div>
     </div>
-    <br />
-    <br />
     <!--button toolbar-->
     <div
       class="btn-toolbar gap-2 justify-content-center"
@@ -89,57 +116,130 @@
 
     <!--footer-->
     <footer>
-      <div class="footer_bar" style="display: ;">
-          <div id="logo">
-             <h1 class="logo">Time<span style="color: blueviolet;">Fillers</span></h1>
+      <div class="footer_bar">
+        <div id="logo">
+          <h1 class="logo">
+            Time<span style="color: blueviolet">Fillers</span>
+          </h1>
+        </div>
+        <div class="about-us">
+          <button
+            class="btn btn-primary"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBothOptions"
+            aria-controls="offcanvasWithBothOptions"
+          >
+            About us
+          </button>
+          <div
+            class="offcanvas offcanvas-start"
+            data-bs-scroll="true"
+            tabindex="-1"
+            id="offcanvasWithBothOptions"
+            aria-labelledby="offcanvasWithBothOptionsLabel"
+          >
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
+                About us
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="offcanvas-body">
+              <p>
+                We are a small developer team working out of NB Canada. We
+                created this webpage so that entertainment lovers, like us,
+                could categorize and organize all their favourite movies, songs,
+                books, etc.
+              </p>
+            </div>
           </div>
-          <div class="about-us">
-              <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">About us</button>
-              <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-                  <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">About us</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                  </div>
-                  <div class="offcanvas-body">
-                    <p>We are a small developer team working out of NB Canada. 
-                      We created this webpage so that entertainment lovers, 
-                      like us, could categorize and organize all their favourite
-                      movies, songs, books, etc.</p>
-                  </div>
-                </div>
+        </div>
+        <div class="contact-us">
+          <button
+            class="btn btn-primary"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBothOptions1"
+            aria-controls="offcanvasWithBothOptions1"
+          >
+            Contact us
+          </button>
+          <div
+            class="offcanvas offcanvas-start"
+            data-bs-scroll="true"
+            tabindex="-1"
+            id="offcanvasWithBothOptions1"
+            aria-labelledby="offcanvasWithBothOptions1Label"
+          >
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasWithBothOptions1Label">
+                Contact us
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="offcanvas-body">
+              <div class="mb-3">
+                <label for="formGroupExampleInput" class="form-label"
+                  >Name</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="usernameInput"
+                  placeholder=" "
+                />
+              </div>
+              <div class="mb-3">
+                <label for="formGroupExampleInput2" class="form-label"
+                  >Email</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="userEmailInput"
+                  placeholder=" "
+                />
+              </div>
+              <div class="mb-3">
+                <label for="formGroupExampleInput2" class="form-label"
+                  >Message</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="userMessageInput"
+                  placeholder=" "
+                />
+              </div>
+              <div class="mb-3">
+                <p id="contactUsResponse"></p>
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  id="contactUsSubmit"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
           </div>
-          <div class="contact-us">
-              <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions1" aria-controls="offcanvasWithBothOptions1">Contact us</button>
-              <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions1" aria-labelledby="offcanvasWithBothOptions1Label">
-                  <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasWithBothOptions1Label">Contact us</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                  </div>
-                  <div class="offcanvas-body " >
-                        <div class="mb-3">
-                          <label for="formGroupExampleInput" class="form-label">Name</label>
-                          <input type="text" class="form-control" id="usernameInput" placeholder=" ">
-                        </div>
-                        <div class="mb-3">
-                          <label for="formGroupExampleInput2" class="form-label">Email</label>
-                          <input type="text" class="form-control" id="userEmailInput" placeholder=" ">
-                        </div>
-                        <div class="mb-3">
-                          <label for="formGroupExampleInput2" class="form-label">Message</label>
-                          <input type="text" class="form-control" id="userMessageInput" placeholder=" ">
-                        </div>
-                        <div class="mb-3">
-                          <p id="contactUsResponse"></p>
-                          <button type="button" class="btn btn-success" id="contactUsSubmit">Submit</button>   
-                        </div>   
-                  </div>
-              </div>                
-          </div>
-          <div id="copyright">
-              <p>©2023 MyTimeFillers Inc.</p>
-          </div>
-      </div>          
-  </footer>
+        </div>
+        <div id="copyright">
+          <p>©2023 MyTimeFillers Inc.</p>
+        </div>
+      </div>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script

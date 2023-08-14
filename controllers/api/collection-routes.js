@@ -63,7 +63,15 @@ router.get("/:id", async (req, res) => {
 
 // POST a new collection
 router.post("/", async (req, res) => {
-  Collection.create(req.body)
+  const userId = await User.findOne({
+    where: {
+      username: req.session.username,
+    },
+  });
+  Collection.create({
+    collection_name: req.body.collection_name,
+    user_id: userId.dataValues.id,
+  })
     .then((collection) => {
       let movieCollectionArr;
       let movieCollectionIds;
