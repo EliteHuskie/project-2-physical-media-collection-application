@@ -22,7 +22,7 @@
     <header class="header">
       <div class=" ">
         <h1>MyTimeFillers.com</h1>
-        <a href="./homepage.html" style="float: right">Homepage</a>
+        <a href="/home" style="float: right">Homepage</a>
       </div>
     </header>
     <!--search-bar/all media-->
@@ -39,7 +39,7 @@
           <button
             id="searchButton"
             class="btn btn-outline-success"
-            type="submit"
+            type="button"
           >
             Search
           </button>
@@ -89,11 +89,12 @@
 
     <br />
     <!--result-->
-    <div class="flex justify-content-center">
-      <div id="searchResults" class="list-group"></div>
+    <div>
+      <div
+        id="searchResults"
+        class="container px-4 text-center row justify-content-center gap-3"
+      ></div>
     </div>
-    <br />
-    <br />
     <!--button toolbar-->
     <div
       class="btn-toolbar gap-2 justify-content-center"

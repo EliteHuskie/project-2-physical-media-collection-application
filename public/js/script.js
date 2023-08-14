@@ -1,6 +1,8 @@
 // Pre-requisites for the search to function properly
-const tmdbApiKey = 'api_key_tmdb'
-const googleApiKey = 'api_key_google'
+// const tmdbApiKey = 'api_key_tmdb'
+const tmdbApiKey = "818371936113359a4fd88312064667b0";
+// const googleApiKey = 'api_key_google'
+const googleApiKey = "AIzaSyCG-nyR7-vk8JJ1_jtKuGoedYTpx9aE2kI";
 
 // Function to search for the Movies + TV Shows that a user searches for
 async function searchMoviesAndTVShows() {
@@ -56,9 +58,10 @@ function displayResults(results, tvShows, type) {
         item.overview,
         null,
         null,
-        type
+        "movies"
       );
-      resultsContainer.appendChild(resultCard);
+      resultsContainer.appendChild(resultCard[0]);
+      resultsContainer.appendChild(resultCard[1]);
     });
 
     tvShows.forEach((item) => {
@@ -68,9 +71,10 @@ function displayResults(results, tvShows, type) {
         item.overview,
         null,
         null,
-        type
+        "tvShows"
       );
-      resultsContainer.appendChild(resultCard);
+      resultsContainer.appendChild(resultCard[0]);
+      resultsContainer.appendChild(resultCard[1]);
     });
   } else if (type === "books") {
     results.forEach((book) => {
@@ -82,7 +86,8 @@ function displayResults(results, tvShows, type) {
         book.volumeInfo.imageLinks.thumbnail,
         type
       );
-      resultsContainer.appendChild(resultCard);
+      resultsContainer.appendChild(resultCard[0]);
+      resultsContainer.appendChild(resultCard[1]);
     });
   }
 }
@@ -97,24 +102,45 @@ function createResultCard(
   type
 ) {
   const resultCard = document.createElement("div");
-  resultCard.classList.add("result-card");
+  resultCard.classList.add("card", "flex-row");
+  resultCard.style = "height: 300px; width:250px";
+  console.log(resultCard.style);
+  resultCard.id = `${title.replaceAll(" ", "-")}_front`;
+
+  const resultCardBack = document.createElement("div");
+  resultCardBack.classList.add("card", "flex-row");
+  resultCardBack.style = "height: 300px; width:250px";
+  resultCardBack.style.display = "none";
+  resultCardBack.id = `${title.replaceAll(" ", "-")}_back`;
+
+  const cardBody = document.createElement("div");
+  cardBody.classList.add("card-body");
 
   let contentHTML = `
-        <h2>${title}</h2>
+        <h4>${title}</h4>
         <p>${overview}</p>
     `;
+  let imgHTML;
 
-  if (type === "moviesAndTVShows") {
-    contentHTML += `<img src="https://image.tmdb.org/t/p/w500/${posterPath}" alt="${title} Poster">`;
+  if (type === "movies" || type === "tvShows") {
+    imgHTML = `<img src="https://image.tmdb.org/t/p/w500/${posterPath}" alt="${title} Poster" width=200>`;
   } else if (type === "books") {
     contentHTML += `
             <p>Author(s): ${authors ? authors.join(", ") : "Unknown"}</p>
-            <img src="${thumbnail}" alt="${title} Cover">
         `;
+    imgHTML = `<img src="${thumbnail}" alt="${title} Cover" class="card-img"></img>`;
   }
 
-  resultCard.innerHTML = contentHTML;
-  return resultCard;
+  const addBttn = document.createElement("button");
+  addBttn.innerHTML = "Add";
+  addBttn.id = "addToCollection";
+
+  resultCard.innerHTML = imgHTML;
+  cardBody.innerHTML = contentHTML;
+  cardBody.appendChild(addBttn);
+  resultCardBack.appendChild(cardBody);
+  resultCardBack.dataset.type = type;
+  return [resultCard, resultCardBack];
 }
 
 // Event handler for search button click
@@ -134,7 +160,9 @@ function handleSearchButtonClick() {
 }
 
 function handleSearchFormSubmit() {
-  const searchType = document.querySelector('input[name="searchType"]:checked').value;
+  const searchType = document.querySelector(
+    'input[name="searchType"]:checked'
+  ).value;
   const searchInput = document.getElementById("searchInput").value;
 
   // Clear previous search results
@@ -146,4 +174,55 @@ function handleSearchFormSubmit() {
   } else if (searchType === "books") {
     searchBooks();
   }
+}
+
+// "Flip" card on click
+const searchResultsContainer = document.getElementById("searchResults");
+
+searchResultsContainer.addEventListener("click", (event) => {
+  if (event.target.id === "addToCollection") {
+    addMediaToCollection(event.target);
+    return;
+  }
+
+  let clickedCard = event.target.parentElement;
+
+  //   If currently showing "back" of card, clicked element might be the card-body, so change to card element
+  if (clickedCard.className.includes("card-body")) {
+    clickedCard = clickedCard.parentElement;
+  } else if (!clickedCard.className.includes("card")) {
+    return;
+  }
+  const clickedCardId = clickedCard.id;
+
+  //   Get card's other side id
+  let oppositeId;
+  if (clickedCardId.split("_")[1] == "front") {
+    oppositeId = `${clickedCardId.split("_")[0]}_back`;
+  } else {
+    oppositeId = `${clickedCardId.split("_")[0]}_front`;
+  }
+
+  //   "Flip" card
+  clickedCard.style.display = "none";
+  const clickedCardOpposite = document.getElementById(oppositeId);
+  clickedCardOpposite.style.display = "flex";
+  return;
+});
+
+// Add media to collection
+function addMediaToCollection(target) {
+  const model = target.dataset.type;
+
+  // fetch(`/api/${model}`, {
+  //   method: "POST",
+  // })
+
+  // fetch("/api/collections/1", {
+  //   method: "PUT",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify({ `${model}_ids`: })
+  // })
 }
