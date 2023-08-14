@@ -13,6 +13,12 @@ body {
   background-color: #ffffff;
 }
 
+.page-container {
+  position: relative;
+  min-height: 100vh;
+
+}
+
 /* Header styles */
 header {
   display: flex;
@@ -86,9 +92,30 @@ nav ul li {
 main {
 }
 
+
+
+/* footer styles */
 footer {
   background-color: rgb(42, 39, 39);
   height: 70px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer_bar {
+  color: aliceblue;
+  background-image: linear-gradient(
+    rgb(25, 26, 71),
+    rgb(9, 9, 17),
+    rgb(79, 2, 73)
+  );
+  height: 70px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
 }
 
 h2 {
@@ -150,21 +177,7 @@ h4 {
   transform: scale(1.05);
 }
 
-/* footer styles */
-.footer_bar {
-  color: aliceblue;
-  background-image: linear-gradient(
-    rgb(25, 26, 71),
-    rgb(9, 9, 17),
-    rgb(79, 2, 73)
-  );
-  height: 70px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 5%;
-}
+
 
 .placeholder-card {
   display: inline-block;

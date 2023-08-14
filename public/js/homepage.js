@@ -107,3 +107,29 @@ $("#contactUsSubmit")
       $(".contact-us .btn-close").click();
     }, 2000);
   });
+// cancel button response
+$(".cancelBtn")
+  .unbind()
+  .bind("click", function(){
+    setTimeout(function(){
+    $(".btn-close").click();
+    }, 1000);
+  })
+// save button response
+$(".save")
+.unbind()
+.bind("click", function () {
+  setTimeout(function () {
+    $(".btn-close").click();
+  }, 2000);
+});
+// Delete my account button response
+$(".remove")
+.unbind()
+.bind("click", function () {
+  setTimeout(function () {
+    $(".btn-close").click();
+  }, 3000);
+});
+
+

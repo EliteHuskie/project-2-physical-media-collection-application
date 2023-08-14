@@ -20,63 +20,20 @@
   <body>
     <!--header/my collection/account -->
     <header class="header">
-      <div class="header-title">
+      <div class=" ">
         <h1>MyTimeFillers.com</h1>
-      </div>
-      <div class="header-box gap-2 justify-content-md-end">
-        <div class="my-collection">
-          <button
-            class="btn btn-outline-secondary dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i class="bi bi-collection-fill" title="My collection"></i>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">My collection</a></li>
-            <li><a class="dropdown-item" href="#">Creat a collection</a></li>
-            <li><a class="dropdown-item" href="#">Edit a collection</a></li>
-            <li><a class="dropdown-item" href="#">Delete a collection</a></li>
-          </ul>
-        </div>
-        <div class="my-account">
-          <button
-            class="btn btn-outline-secondary dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            title="My account"
-          >
-            <i class="bi bi-person-circle"></i>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">My account</a></li>
-            <li><a class="dropdown-item" href="#">Edit my account</a></li>
-            <li><a class="dropdown-item" href="#">Delete my account</a></li>
-            <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
-          </ul>
-        </div>
+        <a href="./homepage.html" style="float: right;">Homepage</a>
       </div>
     </header>
     <!--search-bar/all media-->
     <nav class="input-group w-50 position-relative search-bar">
-      <form class="container-fluid input-group position-absolute top-50 start-50">
+      <form class="container-fluid input-group position-absolute top-50 start-50" action="./search-result.html" method="get">
         <div class="input-group">
-          <input
-            type="text"
-            class="form-control"
-            id="searchInput"
-            name="q"
-            placeholder="Input a book/movie/TV show"
-            aria-label="Username"
-            aria-describedby="basic-addon1"
-          />
-          <input type="radio" name="searchType" value="moviesAndTVShows" checked>Movies & TV Shows
-          <input type="radio" name="searchType" value="books"> Books
-          <button id="searchButton" class="btn btn-outline-success" type="button">Search</button>
-          <button class="btn btn-outline-success" type="button" onclick="navigateToSearchResults();">All media</button>
+            <button class="btn btn-outline-success" type="search">All media</button>
+            <button id="searchButton" class="btn btn-outline-success" type="submit">Search</button>
+            <input type="text" class="form-control" id="searchInput" name="q" placeholder="Input a book/movie/TV show" aria-label="Username" aria-describedby="basic-addon1" />
+            <input type="radio" name="searchType" value="moviesAndTVShows" checked> Movies & TV Shows
+            <input type="radio" name="searchType" value="books"> Books
         </div>
       </form>
     </nav>
@@ -132,19 +89,57 @@
 
     <!--footer-->
     <footer>
-      <div class="footer_bar">
-        <div id="logo">
-          <h1 class="logo">Time<span>Filler</span></h1>
-        </div>
-        <ul>
-          <li><a href="#">About us</a></li>
-          <li><a href="#">Contact us</a></li>
-        </ul>
-        <div id="copyright">
-          <p>©2023 MyTimeFillers Inc.</p>
-        </div>
-      </div>
-    </footer>
+      <div class="footer_bar" style="display: ;">
+          <div id="logo">
+             <h1 class="logo">Time<span style="color: blueviolet;">Fillers</span></h1>
+          </div>
+          <div class="about-us">
+              <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">About us</button>
+              <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                  <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">About us</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  </div>
+                  <div class="offcanvas-body">
+                    <p>We are a small developer team working out of NB Canada. 
+                      We created this webpage so that entertainment lovers, 
+                      like us, could categorize and organize all their favourite
+                      movies, songs, books, etc.</p>
+                  </div>
+                </div>
+          </div>
+          <div class="contact-us">
+              <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions1" aria-controls="offcanvasWithBothOptions1">Contact us</button>
+              <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions1" aria-labelledby="offcanvasWithBothOptions1Label">
+                  <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasWithBothOptions1Label">Contact us</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  </div>
+                  <div class="offcanvas-body " >
+                        <div class="mb-3">
+                          <label for="formGroupExampleInput" class="form-label">Name</label>
+                          <input type="text" class="form-control" id="usernameInput" placeholder=" ">
+                        </div>
+                        <div class="mb-3">
+                          <label for="formGroupExampleInput2" class="form-label">Email</label>
+                          <input type="text" class="form-control" id="userEmailInput" placeholder=" ">
+                        </div>
+                        <div class="mb-3">
+                          <label for="formGroupExampleInput2" class="form-label">Message</label>
+                          <input type="text" class="form-control" id="userMessageInput" placeholder=" ">
+                        </div>
+                        <div class="mb-3">
+                          <p id="contactUsResponse"></p>
+                          <button type="button" class="btn btn-success" id="contactUsSubmit">Submit</button>   
+                        </div>   
+                  </div>
+              </div>                
+          </div>
+          <div id="copyright">
+              <p>©2023 MyTimeFillers Inc.</p>
+          </div>
+      </div>          
+  </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script
