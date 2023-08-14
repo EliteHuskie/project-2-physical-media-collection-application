@@ -18,7 +18,8 @@ Show.init(
     },
     creator: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: null,
     },
     overview: {
       type: DataTypes.TEXT,

@@ -1,15 +1,25 @@
 const router = require("express").Router();
 const { Movie } = require("../../models");
 
-// GET a movie by id
-router.get("/:id", async (req, res) => {
+// GET a movie by id or name
+router.get("/:type/:query", async (req, res) => {
   try {
-    const dbMovieData = await Movie.findByPk(req.params.id);
+    let dbMovieData;
+
+    if (req.params.type === "id") {
+      dbMovieData = await Movie.findByPk(req.params.query);
+    } else {
+      dbMovieData = await Movie.findOne({
+        where: {
+          name: req.params.query,
+        },
+      });
+    }
 
     if (!dbMovieData) {
       res
         .status(404)
-        .json({ message: `No movie found with id: ${req.params.id}` });
+        .json({ message: `No movie found by: ${req.params.query}` });
     }
 
     res.status(200).json(dbMovieData);

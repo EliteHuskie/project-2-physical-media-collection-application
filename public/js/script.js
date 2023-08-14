@@ -104,7 +104,6 @@ function createResultCard(
   const resultCard = document.createElement("div");
   resultCard.classList.add("card", "flex-row");
   resultCard.style = "height: 300px; width:250px";
-  console.log(resultCard.style);
   resultCard.id = `${title.replaceAll(" ", "-")}_front`;
 
   const resultCardBack = document.createElement("div");
@@ -116,17 +115,20 @@ function createResultCard(
   const cardBody = document.createElement("div");
   cardBody.classList.add("card-body");
 
-  let contentHTML = `
-        <h4>${title}</h4>
-        <p>${overview}</p>
-    `;
+  let contentHTML;
   let imgHTML;
 
   if (type === "movies" || type === "tvShows") {
+    contentHTML = `
+    <h4>${title}</h4>
+    <p>${overview}</p>
+`;
     imgHTML = `<img src="https://image.tmdb.org/t/p/w500/${posterPath}" alt="${title} Poster" width=200>`;
   } else if (type === "books") {
-    contentHTML += `
-            <p>Author(s): ${authors ? authors.join(", ") : "Unknown"}</p>
+    contentHTML = `
+            <h4>${title}</h4>
+            <h6>Author(s): ${authors ? authors.join(", ") : "Unknown"}</h6>
+            <p>${overview}</p>
         `;
     imgHTML = `<img src="${thumbnail}" alt="${title} Cover" class="card-img"></img>`;
   }
@@ -181,6 +183,8 @@ const searchResultsContainer = document.getElementById("searchResults");
 
 searchResultsContainer.addEventListener("click", (event) => {
   if (event.target.id === "addToCollection") {
+    const usersCollections = JSON.parse(localStorage.getItem("collections"));
+
     addMediaToCollection(event.target);
     return;
   }
@@ -211,18 +215,106 @@ searchResultsContainer.addEventListener("click", (event) => {
 });
 
 // Add media to collection
-function addMediaToCollection(target) {
-  const model = target.dataset.type;
+async function addMediaToCollection(target) {
+  const collectionId = localStorage.getItem("collectionClicked");
 
-  // fetch(`/api/${model}`, {
-  //   method: "POST",
-  // })
+  const cardEl = target.parentElement.parentElement;
+  const model = cardEl.dataset.type;
+  const name = cardEl.querySelector("h4").innerHTML;
+  const cardFrontEl = document.getElementById(
+    `${name.replaceAll(" ", "-")}_front`
+  );
 
-  // fetch("/api/collections/1", {
-  //   method: "PUT",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({ `${model}_ids`: })
-  // })
+  fetch(`/api/${model}/name/${name}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(async (response) => {
+      let mediaId;
+      if (response.status === 404) {
+        let data;
+        if (cardEl.querySelector("h6")) {
+          data = {
+            name: name,
+            creator: cardEl.querySelector("h6").innerHTML,
+            overview: cardEl.querySelector("p").innerHTML,
+            image_url: cardFrontEl.querySelector("img").src,
+          };
+        } else {
+          data = {
+            name: name,
+            overview: cardEl.querySelector("p").innerHTML,
+            image_url: cardFrontEl.querySelector("img").src,
+          };
+        }
+
+        mediaId = await addMediaToDB(model, data);
+      } else if (response.status === 200) {
+        data = await response.json();
+        mediaId = data.id;
+      } else {
+        const responseData = await response.json();
+        return responseData;
+      }
+
+      let body;
+      if (model === "movies") {
+        body = {
+          mediaIds: {
+            movieIds: [mediaId],
+          },
+        };
+      } else if (model === "tvShows") {
+        body = {
+          mediaIds: {
+            showIds: [mediaId],
+          },
+        };
+      } else {
+        body = {
+          mediaIds: {
+            bookIds: [mediaId],
+          },
+        };
+      }
+
+      fetch(`/api/collections/${collectionId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      }).then((response) => {
+        if (!response.ok) {
+          console.log(response);
+          return;
+        }
+
+        window.location.href = "/home";
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+// Add media to corresponding model
+async function addMediaToDB(mediaType, mediaInfo) {
+  let id;
+  await fetch(`/api/${mediaType}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(mediaInfo),
+  })
+    .then((response) => response.json())
+    .then((data) => (id = data.id))
+    .catch((error) => {
+      console.log(error);
+    });
+
+  return id;
 }

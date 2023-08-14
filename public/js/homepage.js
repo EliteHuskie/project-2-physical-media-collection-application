@@ -19,7 +19,10 @@ function displayCollections(jsonData) {
     return;
   }
 
+  let toStore = [];
+
   for (collection of jsonData) {
+    toStore.push({ id: collection.id, name: collection.collection_name });
     // create containers and headline elements
     const collectionContainerEl = document.createElement("div");
     collectionContainerEl.className = "container overRide";
@@ -92,12 +95,19 @@ function displayCollections(jsonData) {
       cardsContainer.appendChild(cardBack);
     }
 
+    // Add a placeholder card for adding media
+    const phcard = document.createElement("div");
+    phcard.classList = "placeholder-card";
+    phcard.id = collection.id;
+
     collectionContainerEl.appendChild(divEl);
+    cardsContainer.appendChild(phcard);
     collectionContainerEl.appendChild(cardsContainer);
 
     collectionsContainer.appendChild(collectionContainerEl);
   }
 
+  localStorage.setItem("collections", JSON.stringify(toStore));
   return;
 }
 
@@ -134,10 +144,15 @@ saveCollectionBttn.addEventListener("click", (event) => {
     });
 });
 
-// "Flip" card on click
+// "Flip" card on click or add card
 const collectionsContainer = document.getElementById("collectionsContainer");
 
 collectionsContainer.addEventListener("click", (event) => {
+  if (event.target.classList[0] === "placeholder-card") {
+    localStorage.setItem("collectionClicked", event.target.id);
+    window.location.href = "/results";
+  }
+
   let clickedCard = event.target.parentElement;
   //   If currently showing "back" of card, clicked element might be the card-body, so change to card element
   if (clickedCard.className.includes("card-body")) {

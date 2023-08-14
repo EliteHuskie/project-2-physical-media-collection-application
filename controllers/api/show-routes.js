@@ -1,15 +1,25 @@
 const router = require("express").Router();
 const { Show } = require("../../models");
 
-// GET a Show by id
-router.get("/:id", async (req, res) => {
+// GET a Show by id or name
+router.get("/:type/:query", async (req, res) => {
   try {
-    const dbShowData = await Show.findByPk(req.params.id);
+    let dbShowData;
+
+    if (req.params.type === "id") {
+      dbShowData = await Show.findByPk(req.params.query);
+    } else {
+      dbShowData = await Show.findOne({
+        where: {
+          name: req.params.query,
+        },
+      });
+    }
 
     if (!dbShowData) {
       res
         .status(404)
-        .json({ message: `No Show found with id: ${req.params.id}` });
+        .json({ message: `No Show found by: ${req.params.query}` });
     }
 
     res.status(200).json(dbShowData);
