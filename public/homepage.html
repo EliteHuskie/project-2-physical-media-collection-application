@@ -12,13 +12,14 @@
  
 
 <body>
+  <div class="page-container">
 <!--header add a media/my collection/account -->
     <header class="header">
         <div class="header-title">
             <h1>MyTimeFillers.com</h1>
         </div>
         <div class="header-box gap-2 justify-content-md-end">
-            <!-- add a media -->
+            <!-- add a media menu -->
             <div>
                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-plus-square" title="Add a media"></i></button>
                 <ul class="dropdown-menu">
@@ -28,7 +29,7 @@
                 </ul>
             </div>
              <!-- add a book dialog -->
-             <div class="modal fade" id="addBook" style="background-color: whitesmoke;">
+            <div class="modal fade" id="addBook" style="background-color: whitesmoke;">
                 <div class="modal-dialog">
                     <div class="modal-content">
                       <!-- header -->
@@ -41,16 +42,16 @@
                           <form action="">
                             <div class="form-group">
                                <label for="" style="color: blue;">Name</label>
-                               <input type="text" class="collection form-control" >
+                               <input type="text" class="addBook form-control" >
                                <label for="" style="color: blue;">Author</label>
-                               <input type="text" class="collection form-control" >
+                               <input type="text" class="addBook form-control" >
                                <label for="" style="color: blue;">Image</label>
-                               <input type="image" class="collection form-control" >
+                               <input type="image" class="addBook form-control" >
                                <label for="" style="color: blue;">Description</label>
-                               <input type="text" class="collection form-control" >
+                               <input type="text" class="addBook form-control" >
                             </div> 
                           </form>
-                          <button type="button" class="btn btn-success">Save</button>  
+                          <button type="button" class="btn btn-success save">Save</button>  
                         </div>          
                    </div> 
                 </div>
@@ -69,16 +70,16 @@
                           <form action="">
                             <div class="form-group">
                                <label for="" style="color: blue;">Name</label>
-                               <input type="text" class="collection form-control" >
+                               <input type="text" class="addMoive form-control" >
                                <label for="" style="color: blue;">Director</label>
-                               <input type="text" class="collection form-control" >
+                               <input type="text" class="addMovie form-control" >
                                <label for="" style="color: blue;">Image</label>
-                               <input type="image" class="collection form-control" >
+                               <input type="image" class="addMoive form-control" >
                                <label for="" style="color: blue;">Description</label>
-                               <input type="text" class="collection form-control" >
+                               <input type="text" class="addMoive form-control" >
                             </div> 
                           </form>
-                          <button type="button" class="btn btn-success">Save</button>  
+                          <button type="button" class="btn btn-success save">Save</button>  
                         </div>          
                    </div> 
                 </div>
@@ -97,17 +98,17 @@
                           <form action="">
                             <div class="form-group">
                                <label for="" style="color: blue;">Name</label>
-                               <input type="text" class="collection form-control" >
+                               <input type="text" class="addTVshow form-control" >
                                <label for="" style="color: blue;">Director</label>
-                               <input type="text" class="collection form-control" >
+                               <input type="text" class="addTVshow form-control" >
                                <label for="" style="color: blue;">Image</label>
-                               <input type="image" class="collection form-control" >
+                               <input type="image" class="addTVshow form-control" >
                                <label for="" style="color: blue;">Description</label>
-                               <input type="text" class="collection form-control" >
+                               <input type="text" class="addTVshow form-control" >
 
                             </div> 
                           </form>
-                          <button type="button" class="btn btn-success">Save</button>  
+                          <button type="button" class="btn btn-success save">Save</button>  
                         </div>          
                    </div> 
                 </div>
@@ -136,22 +137,111 @@
                           <form action="">
                             <label for="" style="color: blue;">Collection name</label>
                             <input type="text" class="collection form-control" >
+                            <label for="" style="color: blue;">Image</label>
+                            <input type="image" class="collection form-control" >
                           </form>
-                          <button type="button" class="btn btn-success">Save</button>  
+                          <button type="button" class="btn btn-success save" data-bs-toggle="modal" data-bs-target="#createCollectionDone">Save</button>  
                         </div>          
                    </div> 
                 </div>
+             </div>
+             <div class="modal fade" id="createCollectionDone" style="background-color: whitesmoke;">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                      <p style="color: black;">You have creat a collection successfully!</p>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                     </div>
+                  </div> 
+              </div>
             </div>
          <!-- my account drop down menu -->
             <div class="my-account">
                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-circle" title="My account"></i></button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" id = "myAccount" href="#">My account</a></li>
-                    <li><a class="dropdown-item" id = "editAccount" href="#">Edit my account</a></li>
-                    <li><a class="dropdown-item" id = "deleteMyAccount" href="#">Delete my account</a></li>
+                    <li><a class="dropdown-item" id = "myAccount" href="#"  data-bs-toggle="modal" data-bs-target="#myAccountShow">My account</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" id = "signOut" href="#">Sign out</a></li>
                 </ul>
+                <!-- my account dialog -->
+                <div class="modal fade" id="myAccountShow" style="background-color: whitesmoke;">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                        <!-- header -->
+                         <div class="modal-header">
+                            <h3 style="color: blue;">Name:****</h3>
+                         </div>
+                        <!-- body -->
+                         <div class="modal-body">
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editMyAccount">Edit</button>  
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#deleteMyAccount">Delete</button> 
+                          </div>          
+                     </div> 
+                  </div>
+               </div>
+                <!-- edit my account form -->
+                <div class="modal fade" id="editMyAccount" style="background-color: whitesmoke;">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                        <!-- header -->
+                         <div class="modal-header">
+                            <h3 style="color: blue;">Edit my account</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                         </div>
+                        <!-- body -->
+                         <div class="modal-body">
+                            <form action="">
+                              <label for="" style="color: blue;">User name</label>
+                              <input type="text" class="myAccount form-control" >
+                              <label for="" style="color: blue;">Password</label>
+                              <input type="text" class="myAccount form-control" >
+                            </form>
+                            <button type="button" class="btn btn-success save" data-bs-toggle="modal" data-bs-target="#editMyAccountDone">Save</button> 
+                            <button type="button" class="btn btn-success cancelBtn">Cancel</button>   
+                          </div>          
+                     </div> 
+                  </div>
+                </div>
+                <div class="modal fade" id="editMyAccountDone" style="background-color: whitesmoke;">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                         <div class="modal-header">
+                          <p style="color: black;">Your account have been edited successfully!</p>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                         </div>
+                      </div> 
+                  </div>
+                </div>
+                <!-- delete my account -->
+                <div class="modal fade" id="deleteMyAccount" style="background-color: whitesmoke;">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                        <!-- header -->
+                         <div class="modal-header">
+                            <h3 style="color: red;">Danger!</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                         </div>
+                        <!-- body -->
+                         <div class="modal-body">
+                            <p style="color: black;">Are you sure to remove your account?</p>
+                            <button type="button" class="btn btn-success remove" data-bs-toggle="modal" data-bs-target="#deleteMyAccountDone">Remove</button> 
+                            <button type="button" class="btn btn-success cancelBtn">Cancel</button>   
+                          </div>          
+                     </div> 
+                  </div>
+               </div>
+               <div class="modal fade" id="deleteMyAccountDone" style="background-color: whitesmoke;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                       <div class="modal-header">
+                        <p style="color: black;">Your account have been removed!</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                       </div>
+                    </div> 
+                </div>
+             </div>
+
+
             </div>
         </div>
     </header>
@@ -159,11 +249,11 @@
 <nav class="input-group w-50 position-relative search-bar">
   <form class="container-fluid input-group position-absolute top-50 start-50" action="./search-result.html" method="get">
     <div class="input-group">
+        <button class="btn btn-outline-success" type="search">All media</button>
+        <button id="searchButton" class="btn btn-outline-success" type="submit">Search</button>
         <input type="text" class="form-control" id="searchInput" name="q" placeholder="Input a book/movie/TV show" aria-label="Username" aria-describedby="basic-addon1" />
         <input type="radio" name="searchType" value="moviesAndTVShows" checked> Movies & TV Shows
         <input type="radio" name="searchType" value="books"> Books
-        <button id="searchButton" class="btn btn-outline-success" type="submit">Search</button>
-        <button class="btn btn-outline-success" type="search">All media</button>
     </div>
 </form>
 </nav>
@@ -285,9 +375,9 @@
         </div>
     <br> -->
     <footer>
-        <div class="footer_bar">
+        <div class="footer_bar" style="display: ;">
             <div id="logo">
-               
+               <h1 class="logo">Time<span style="color: blueviolet;">Fillers</span></h1>
             </div>
             <div class="about-us">
                 <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">About us</button>
@@ -297,7 +387,10 @@
                       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
-                      <p>Physical Media Collection of Books, Movies and TV Shows.Users can create, update and delete collections of Books, Movies and TV Shows they have in their own collection</p>
+                      <p>We are a small developer team working out of NB Canada. 
+                        We created this webpage so that entertainment lovers, 
+                        like us, could categorize and organize all their favourite
+                        movies, songs, books, etc.</p>
                     </div>
                   </div>
             </div>
@@ -333,6 +426,7 @@
             </div>
         </div>          
     </footer>
+  </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="js/script.js"></script>
