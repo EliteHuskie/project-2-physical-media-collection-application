@@ -12,16 +12,20 @@ Movie.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    movie_name: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    director: {
+    creator: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
+    overview: {
       type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    image_url: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
   },
