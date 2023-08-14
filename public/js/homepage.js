@@ -113,14 +113,6 @@ fetch("/api/collections", {
   .then((response) => response.json())
   .then((data) => displayCollections(data));
 
-//about us button
-const popoverTriggerList = document.querySelectorAll(
-  '[data-bs-toggle="popover"]'
-);
-const popoverList = [...popoverTriggerList].map(
-  (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
-);
-
 // Create a collection
 const collectionNameInputEl = document.getElementById("newCollectionName");
 const saveCollectionBttn = document.getElementById("saveNewCollection");
@@ -150,6 +142,8 @@ collectionsContainer.addEventListener("click", (event) => {
   //   If currently showing "back" of card, clicked element might be the card-body, so change to card element
   if (clickedCard.className.includes("card-body")) {
     clickedCard = clickedCard.parentElement;
+  } else if (!clickedCard.className.includes("card")) {
+    return;
   }
   const clickedCardId = clickedCard.id;
 
@@ -165,7 +159,16 @@ collectionsContainer.addEventListener("click", (event) => {
   clickedCard.style.display = "none";
   const clickedCardOpposite = document.getElementById(oppositeId);
   clickedCardOpposite.style.display = "flex";
+  return;
 });
+
+//about us button
+const popoverTriggerList = document.querySelectorAll(
+  '[data-bs-toggle="popover"]'
+);
+const popoverList = [...popoverTriggerList].map(
+  (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
+);
 
 // Contact us submit response
 $("#contactUsSubmit")
@@ -180,26 +183,24 @@ $("#contactUsSubmit")
 // cancel button response
 $(".cancelBtn")
   .unbind()
-  .bind("click", function(){
-    setTimeout(function(){
-    $(".btn-close").click();
+  .bind("click", function () {
+    setTimeout(function () {
+      $(".btn-close").click();
     }, 1000);
-  })
+  });
 // save button response
 $(".save")
-.unbind()
-.bind("click", function () {
-  setTimeout(function () {
-    $(".btn-close").click();
-  }, 2000);
-});
+  .unbind()
+  .bind("click", function () {
+    setTimeout(function () {
+      $(".btn-close").click();
+    }, 2000);
+  });
 // Delete my account button response
 $(".remove")
-.unbind()
-.bind("click", function () {
-  setTimeout(function () {
-    $(".btn-close").click();
-  }, 3000);
-});
-
-
+  .unbind()
+  .bind("click", function () {
+    setTimeout(function () {
+      $(".btn-close").click();
+    }, 3000);
+  });
