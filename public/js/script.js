@@ -325,7 +325,7 @@ async function addMediaToCollection(target) {
           return;
         }
 
-        // window.location.href = "/home";
+        window.location.href = "/home";
       });
     })
     .catch((error) => {
