@@ -70,7 +70,7 @@ function displayCollections(jsonData) {
     itemArray = collection.Books.concat(collection.Movies, collection.Shows);
 
     cardCount = 0;
-    // loop through items
+    // loop through items and create a card for each
     for (item of itemArray) {
       cardCount += 1;
 
@@ -126,8 +126,16 @@ function displayCollections(jsonData) {
     phcard.classList = "placeholder-card";
     phcard.id = collection.id;
 
+    // Add a delete card
+    const deleteCard = document.createElement("div");
+    deleteCard.className = "delete-card fa";
+    deleteCard.innerHTML =
+      '<i class="fa fa-trash-o" style="font-size:36px; color:darkred;"></i>';
+    deleteCard.id = collection.id;
+
     collectionContainerEl.appendChild(divEl);
     cardsContainer.appendChild(phcard);
+    cardsContainer.appendChild(deleteCard);
     collectionContainerEl.appendChild(cardsContainer);
 
     collectionsContainer.appendChild(collectionContainerEl);
@@ -159,6 +167,21 @@ async function uploadToCloudinary(imageData, collectionName) {
     });
 
   return url;
+}
+
+async function deleteCollection(collId) {
+  fetch(`/api/collections/${collId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (response.ok) {
+        window.location.href = "/home";
+      }
+    })
+    .catch((error) => console.log(error));
 }
 
 // -------------------- //
@@ -215,9 +238,23 @@ saveCollectionBttn.addEventListener("click", async (event) => {
 const collectionsContainer = document.getElementById("collectionsContainer");
 
 collectionsContainer.addEventListener("click", (event) => {
+  // if placeholder card was clicked, switch to search page
   if (event.target.classList[0] === "placeholder-card") {
     localStorage.setItem("collectionClicked", event.target.id);
     window.location.href = "/results";
+    // if delete card was clicked, delete collection
+  } else if (
+    event.target.classList[0] === "delete-card" ||
+    event.target.classList[1] === "fa-trash-o"
+  ) {
+    if (confirm("Are you sure you want to delete this collection?")) {
+      const cardEl =
+        event.target.classList[0] === "delete-card"
+          ? event.target
+          : event.target.parentElement;
+      deleteCollection(cardEl.id);
+    }
+    return;
   }
 
   let clickedCard = event.target.parentElement;
