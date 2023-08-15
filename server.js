@@ -27,6 +27,12 @@ app.use(express.static("public"));
 app.get("/", (req, res) =>
   res.sendFile(path.join(__dirname, "public/index.html"))
 );
+app.get("/api-keys", (req, res) => {
+  res.json({
+    tmdbApiKey: process.env.TMDB_API_KEY,
+    googleApiKey: process.env.GOOGLE_API_KEY,
+  });
+});
 app.get("/home", (req, res) => {
   // If no active session, redirect to login page
   if (!req.session.loggedIn) {
