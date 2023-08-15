@@ -204,15 +204,36 @@ saveCollectionBttn.addEventListener("click", async (event) => {
   const collectionName = collectionNameInputEl.value;
   const imgData = document.getElementById("newCollectionImage").files[0];
 
-  const imgReader = new FileReader();
-  imgReader.readAsDataURL(imgData);
+  if (imgData) {
+    const imgReader = new FileReader();
+    imgReader.readAsDataURL(imgData);
 
-  //   convert uploaded image to a data url
-  imgReader.addEventListener("load", async () => {
-    const imgUrl = await uploadToCloudinary(imgReader.result, collectionName);
-    console.log(imgUrl);
+    //   convert uploaded image to a data url
+    imgReader.addEventListener("load", async () => {
+      const imgUrl = await uploadToCloudinary(imgReader.result, collectionName);
+      console.log(imgUrl);
 
-    // create the collection
+      // create the collection
+      fetch("/api/collections", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          collection_name: collectionName,
+          image_url: `${imgUrl}`,
+        }),
+      })
+        .then((response) => {
+          console.log(response);
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          window.location.href = "/home";
+        });
+    });
+  } else {
     fetch("/api/collections", {
       method: "POST",
       headers: {
@@ -220,7 +241,6 @@ saveCollectionBttn.addEventListener("click", async (event) => {
       },
       body: JSON.stringify({
         collection_name: collectionName,
-        image_url: `${imgUrl}`,
       }),
     })
       .then((response) => {
@@ -231,7 +251,7 @@ saveCollectionBttn.addEventListener("click", async (event) => {
         console.log(data);
         window.location.href = "/home";
       });
-  });
+  }
 });
 
 // Show card info on click or add card
