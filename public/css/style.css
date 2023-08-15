@@ -170,8 +170,14 @@ h4 {
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   background-color: rgb(224, 219, 219);
 }
-.card :hover {
-  transform: scale(1.05);
+
+.card {
+  background-color: #333;
+  justify-content: "center";
+}
+
+.card img:hover {
+  opacity: 0.5;
 }
 
 .placeholder-card {
@@ -198,4 +204,33 @@ h4 {
   margin-left: 0;
   margin-right: 0;
   --bs-gutter-x: 0.2rem;
+}
+
+#infoContainer {
+  display: block;
+  justify-content: center;
+}
+
+/* Dynamic card classes */
+
+.card-back {
+  background-color: #fff;
+  height: 500;
+  width: 400;
+}
+
+.uploadCard {
+  background-color: transparent;
+}
+
+.uploadCard-overlay {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  width: inherit;
+  height: 100px;
+  background-image: linear-gradient(
+    rgba(250, 250, 250, 1),
+    rgba(250, 250, 250, 0)
+  );
 }

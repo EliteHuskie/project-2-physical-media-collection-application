@@ -1,6 +1,8 @@
 // Pre-requisites for the search to function properly
-const tmdbApiKey = process.env.tmdbApiKey;
-const googleApiKey = process.env.googleApiKey;
+// const tmdbApiKey = process.env.tmdbApiKey;
+const tmdbApiKey = "818371936113359a4fd88312064667b0";
+// const googleApiKey = process.env.googleApiKey;
+const googleApiKey = "AIzaSyCG-nyR7-vk8JJ1_jtKuGoedYTpx9aE2kI";
 
 // Function to search for the Movies + TV Shows that a user searches for
 async function searchMoviesAndTVShows() {
@@ -46,46 +48,54 @@ async function searchBooks() {
 // Function that will Display Results for Movies + TV Shows or Books based on the users input
 function displayResults(results, tvShows, type) {
   const resultsContainer = document.getElementById("searchResults");
+  const infoContainer = document.getElementById("infoContainer");
   resultsContainer.innerHTML = "";
 
+  let cardCount = 0;
   if (type === "moviesAndTVShows") {
     results.forEach((item) => {
+      cardCount += 1;
       const resultCard = createResultCard(
         item.title,
         item.poster_path,
         item.overview,
         null,
         null,
-        "movies"
+        "movies",
+        cardCount
       );
       resultsContainer.appendChild(resultCard[0]);
-      resultsContainer.appendChild(resultCard[1]);
+      infoContainer.appendChild(resultCard[1]);
     });
 
     tvShows.forEach((item) => {
+      cardCount += 1;
       const resultCard = createResultCard(
         item.name,
         item.poster_path,
         item.overview,
         null,
         null,
-        "tvShows"
+        "tvShows",
+        cardCount
       );
       resultsContainer.appendChild(resultCard[0]);
-      resultsContainer.appendChild(resultCard[1]);
+      infoContainer.appendChild(resultCard[1]);
     });
   } else if (type === "books") {
     results.forEach((book) => {
+      cardCount += 1;
       const resultCard = createResultCard(
         book.volumeInfo.title,
         null,
         book.volumeInfo.description,
         book.volumeInfo.authors,
         book.volumeInfo.imageLinks.thumbnail,
-        type
+        type,
+        cardCount
       );
       resultsContainer.appendChild(resultCard[0]);
-      resultsContainer.appendChild(resultCard[1]);
+      infoContainer.appendChild(resultCard[1]);
     });
   }
 }
@@ -97,18 +107,18 @@ function createResultCard(
   overview,
   authors,
   thumbnail,
-  type
+  type,
+  cardNum
 ) {
   const resultCard = document.createElement("div");
   resultCard.classList.add("card", "flex-row");
-  resultCard.style = "height: 300px; width:250px";
-  resultCard.id = `${title.replaceAll(" ", "-")}_front`;
+  resultCard.style = "height: 300px; width:202px; padding:0";
+  resultCard.id = `${title.replaceAll(" ", "-")}-${cardNum}_front`;
 
   const resultCardBack = document.createElement("div");
-  resultCardBack.classList.add("card", "flex-row");
-  resultCardBack.style = "height: 300px; width:250px";
+  resultCardBack.classList.add("card", "card-back", "flex-row");
   resultCardBack.style.display = "none";
-  resultCardBack.id = `${title.replaceAll(" ", "-")}_back`;
+  resultCardBack.id = `${title.replaceAll(" ", "-")}-${cardNum}_back`;
 
   const cardBody = document.createElement("div");
   cardBody.classList.add("card-body");
@@ -178,15 +188,9 @@ function handleSearchFormSubmit() {
 
 // "Flip" card on click
 const searchResultsContainer = document.getElementById("searchResults");
+const infoContainer = document.getElementById("infoContainer");
 
 searchResultsContainer.addEventListener("click", (event) => {
-  if (event.target.id === "addToCollection") {
-    const usersCollections = JSON.parse(localStorage.getItem("collections"));
-
-    addMediaToCollection(event.target);
-    return;
-  }
-
   let clickedCard = event.target.parentElement;
 
   //   If currently showing "back" of card, clicked element might be the card-body, so change to card element
@@ -198,18 +202,23 @@ searchResultsContainer.addEventListener("click", (event) => {
   const clickedCardId = clickedCard.id;
 
   //   Get card's other side id
-  let oppositeId;
-  if (clickedCardId.split("_")[1] == "front") {
-    oppositeId = `${clickedCardId.split("_")[0]}_back`;
-  } else {
-    oppositeId = `${clickedCardId.split("_")[0]}_front`;
-  }
+  let oppositeId = `${clickedCardId.split("_")[0]}_back`;
 
-  //   "Flip" card
-  clickedCard.style.display = "none";
+  //  If showing, hide. If hidden, display
   const clickedCardOpposite = document.getElementById(oppositeId);
-  clickedCardOpposite.style.display = "flex";
+  if (clickedCardOpposite.style.display == "none") {
+    clickedCardOpposite.style.display = "flex";
+  } else {
+    clickedCardOpposite.style.display = "none";
+  }
   return;
+});
+
+infoContainer.addEventListener("click", (event) => {
+  if (event.target.id === "addToCollection") {
+    addMediaToCollection(event.target);
+    return;
+  }
 });
 
 // Add media to collection
@@ -220,7 +229,7 @@ async function addMediaToCollection(target) {
   const model = cardEl.dataset.type;
   const name = cardEl.querySelector("h4").innerHTML;
   const cardFrontEl = document.getElementById(
-    `${name.replaceAll(" ", "-")}_front`
+    `${cardEl.id.split("_")[0]}_front`
   );
 
   fetch(`/api/${model}/name/${name}`, {
@@ -238,13 +247,17 @@ async function addMediaToCollection(target) {
             name: name,
             creator: cardEl.querySelector("h6").innerHTML,
             overview: cardEl.querySelector("p").innerHTML,
-            image_url: cardFrontEl.querySelector("img").src,
+            image_url: cardFrontEl.querySelector("img").src
+              ? cardFrontEl.querySelector("img").src
+              : null,
           };
         } else {
           data = {
             name: name,
             overview: cardEl.querySelector("p").innerHTML,
-            image_url: cardFrontEl.querySelector("img").src,
+            image_url: cardFrontEl.querySelector("img").src
+              ? cardFrontEl.querySelector("img").src
+              : null,
           };
         }
 
