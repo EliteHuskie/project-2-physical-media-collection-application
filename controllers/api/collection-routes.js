@@ -70,6 +70,7 @@ router.post("/", async (req, res) => {
   });
   Collection.create({
     collection_name: req.body.collection_name,
+    image_url: req.body.image_url,
     user_id: userId.dataValues.id,
   })
     .then((collection) => {

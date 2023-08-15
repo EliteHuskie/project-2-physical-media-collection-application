@@ -249,11 +249,16 @@
                       id="newCollectionName"
                     />
                     <label for="" style="color: blue">Image</label>
-                    <input type="image" class="collection form-control" />
+                    <input
+                      type="file"
+                      class="collection form-control"
+                      id="newCollectionImage"
+                      accept="image/*"
+                    />
                   </form>
                   <button
                     type="button"
-                    class="btn btn-success save"
+                    class="btn btn-success"
                     data-bs-toggle="modal"
                     data-bs-target="#createCollectionDone"
                     id="saveNewCollection"
@@ -501,7 +506,10 @@
         </form>
       </nav> -->
       <!-- My collection container -->
-      <div id="collectionsContainer"></div>
+      <div style="display: flex">
+        <div id="collectionsContainer"></div>
+        <div id="infoContainer"></div>
+      </div>
       <footer>
         <div class="footer_bar">
           <div id="logo">

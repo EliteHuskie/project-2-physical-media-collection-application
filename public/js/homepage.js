@@ -1,6 +1,7 @@
 // -------- Functions -------- //
 
 function displayCollections(jsonData) {
+  const infoContainerEl = document.getElementById("infoContainer");
   // if no collections, display just text
   if (!jsonData.length) {
     const collectionContainerEl = document.createElement("div");
@@ -23,6 +24,7 @@ function displayCollections(jsonData) {
 
   for (collection of jsonData) {
     toStore.push({ id: collection.id, name: collection.collection_name });
+
     // create containers and headline elements
     const collectionContainerEl = document.createElement("div");
     collectionContainerEl.className = "container overRide";
@@ -39,6 +41,31 @@ function displayCollections(jsonData) {
     cardsContainer.className =
       "container px-4 text-center row justify-content-left gap-2";
 
+    // if user uploaded an image, display first
+    if (collection.image_url) {
+      const uploadCard = document.createElement("div");
+      uploadCard.className = "card flex-row uploadCard";
+      uploadCard.style = "height: 300; width:300";
+      uploadCard.style.backgroundImage = `url(${collection.image_url})`;
+      uploadCard.style.backgroundRepeat = "no-repeat";
+      uploadCard.style.backgroundSize = "contain";
+      uploadCard.style.backgroundPosition = "bottom";
+      uploadCard.id = `${collection.collection_name.replaceAll(
+        " ",
+        "-"
+      )}-0_front`;
+
+      const textDiv = document.createElement("div");
+      textDiv.className = "uploadCard-overlay";
+
+      const textEl = document.createElement("h5");
+      textEl.innerHTML = "My Collection";
+
+      textDiv.appendChild(textEl);
+      uploadCard.appendChild(textDiv);
+      cardsContainer.appendChild(uploadCard);
+    }
+
     // create an array with all items in collection
     itemArray = collection.Books.concat(collection.Movies, collection.Shows);
 
@@ -49,15 +76,14 @@ function displayCollections(jsonData) {
 
       const card = document.createElement("div");
       card.className = "card flex-row";
-      card.style = "height: 300; width:250";
+      card.style = "height: 300; width:202; padding: 0px";
       card.id = `${collection.collection_name.replaceAll(
         " ",
         "-"
       )}-${cardCount}_front`;
 
       const cardBack = document.createElement("div");
-      cardBack.className = "card flex-row";
-      cardBack.style = "height: 300; width:250";
+      cardBack.className = "card card-back flex-row";
       cardBack.style.display = "none";
       cardBack.id = `${collection.collection_name.replaceAll(
         " ",
@@ -92,7 +118,7 @@ function displayCollections(jsonData) {
       cardBack.appendChild(cardBody);
 
       cardsContainer.appendChild(card);
-      cardsContainer.appendChild(cardBack);
+      infoContainer.appendChild(cardBack);
     }
 
     // Add a placeholder card for adding media
@@ -111,6 +137,30 @@ function displayCollections(jsonData) {
   return;
 }
 
+async function uploadToCloudinary(imageData, collectionName) {
+  let url;
+  await fetch("/api/upload-image", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      image: imageData,
+      collection_name: collectionName,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (!data) {
+        throw new Error();
+      }
+
+      url = data;
+    });
+
+  return url;
+}
+
 // -------------------- //
 
 // Load user's collections on login
@@ -127,24 +177,41 @@ fetch("/api/collections", {
 const collectionNameInputEl = document.getElementById("newCollectionName");
 const saveCollectionBttn = document.getElementById("saveNewCollection");
 
-saveCollectionBttn.addEventListener("click", (event) => {
+saveCollectionBttn.addEventListener("click", async (event) => {
   const collectionName = collectionNameInputEl.value;
+  const imgData = document.getElementById("newCollectionImage").files[0];
 
-  fetch("/api/collections", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ collection_name: collectionName }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      window.location.href = "/home";
-    });
+  const imgReader = new FileReader();
+  imgReader.readAsDataURL(imgData);
+
+  //   convert uploaded image to a data url
+  imgReader.addEventListener("load", async () => {
+    const imgUrl = await uploadToCloudinary(imgReader.result, collectionName);
+    console.log(imgUrl);
+
+    // create the collection
+    fetch("/api/collections", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        collection_name: collectionName,
+        image_url: `${imgUrl}`,
+      }),
+    })
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        window.location.href = "/home";
+      });
+  });
 });
 
-// "Flip" card on click or add card
+// Show card info on click or add card
 const collectionsContainer = document.getElementById("collectionsContainer");
 
 collectionsContainer.addEventListener("click", (event) => {
@@ -163,17 +230,15 @@ collectionsContainer.addEventListener("click", (event) => {
   const clickedCardId = clickedCard.id;
 
   //   Get card's other side id
-  let oppositeId;
-  if (clickedCardId.split("_")[1] == "front") {
-    oppositeId = `${clickedCardId.split("_")[0]}_back`;
-  } else {
-    oppositeId = `${clickedCardId.split("_")[0]}_front`;
-  }
+  let oppositeId = `${clickedCardId.split("_")[0]}_back`;
 
-  //   "Flip" card
-  clickedCard.style.display = "none";
+  //   Hide/Show info card
   const clickedCardOpposite = document.getElementById(oppositeId);
-  clickedCardOpposite.style.display = "flex";
+  if (clickedCardOpposite.style.display == "none") {
+    clickedCardOpposite.style.display = "flex";
+  } else {
+    clickedCardOpposite.style.display = "none";
+  }
   return;
 });
 
