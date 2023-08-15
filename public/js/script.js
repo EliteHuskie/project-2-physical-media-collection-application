@@ -1,42 +1,36 @@
-// Pre-requisites for the search to function properly
-// const tmdbApiKey = process.env.tmdbApiKey;
-// const googleApiKey = process.env.googleApiKey;
-
-// Function to search for the Movies + TV Shows that a user searches for
 async function searchMoviesAndTVShows() {
+  const response = await fetch("/api-keys");
+  const keys = await response.json();
+  const tmdbApiKey = keys.tmdbApiKey;
   const searchQuery = document.getElementById("searchInput").value;
-
   const movieUrl = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&query=${encodeURIComponent(
     searchQuery
   )}`;
   const tvShowUrl = `https://api.themoviedb.org/3/search/tv?api_key=${tmdbApiKey}&query=${encodeURIComponent(
     searchQuery
   )}`;
-
   try {
     const movieResponse = await fetch(movieUrl);
     const tvShowResponse = await fetch(tvShowUrl);
-
     const movieData = await movieResponse.json();
     const tvShowData = await tvShowResponse.json();
-
     displayResults(movieData.results, tvShowData.results, "moviesAndTVShows");
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
-
 // Function to search for Books based on the users input
 async function searchBooks() {
+  const response = await fetch("/api-keys");
+  const keys = await response.json();
+  const googleApiKey = keys.googleApiKey;
   const searchQuery = document.getElementById("searchInput").value;
   const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
     searchQuery
   )}&key=${googleApiKey}`;
-
   try {
     const response = await fetch(url);
     const data = await response.json();
-
     displayResults(data.items, null, "books");
   } catch (error) {
     console.error("Error fetching book data:", error);
