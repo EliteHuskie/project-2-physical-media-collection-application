@@ -111,6 +111,30 @@ function displayCollections(jsonData) {
   return;
 }
 
+async function uploadToCloudinary(imageData, collectionName) {
+  let url;
+  await fetch("/api/upload-image", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      image: imageData,
+      collection_name: collectionName,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (!data) {
+        throw new Error();
+      }
+
+      url = data;
+    });
+
+  return url;
+}
+
 // -------------------- //
 
 // Load user's collections on login
@@ -127,21 +151,36 @@ fetch("/api/collections", {
 const collectionNameInputEl = document.getElementById("newCollectionName");
 const saveCollectionBttn = document.getElementById("saveNewCollection");
 
-saveCollectionBttn.addEventListener("click", (event) => {
+saveCollectionBttn.addEventListener("click", async (event) => {
   const collectionName = collectionNameInputEl.value;
+  const imgData = document.getElementById("newCollectionImage").files[0];
 
-  fetch("/api/collections", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ collection_name: collectionName }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      window.location.href = "/home";
-    });
+  const imgReader = new FileReader();
+  imgReader.readAsDataURL(imgData);
+
+  imgReader.addEventListener("load", async () => {
+    const imgUrl = await uploadToCloudinary(imgReader.result, collectionName);
+    console.log(imgUrl);
+
+    fetch("/api/collections", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        collection_name: collectionName,
+        image_url: `${imgUrl}`,
+      }),
+    })
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        // window.location.href = "/home";
+      });
+  });
 });
 
 // "Flip" card on click or add card
