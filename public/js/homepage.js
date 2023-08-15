@@ -16,6 +16,7 @@ function displayCollections(jsonData) {
 
     newHeadlineContainer.appendChild(textEl);
     collectionContainerEl.appendChild(newHeadlineContainer);
+    collectionsContainer.appendChild(collectionContainerEl);
     return;
   }
 
@@ -50,10 +51,6 @@ function displayCollections(jsonData) {
       uploadImg.src = collection.image_url;
       uploadImg.id = `upload-image-${collection.id}`;
       uploadCard.appendChild(uploadImg);
-      //   uploadCard.style.backgroundImage = `url(${collection.image_url})`;
-      //   uploadCard.style.backgroundRepeat = "no-repeat";
-      //   uploadCard.style.backgroundSize = "contain";
-      //   uploadCard.style.backgroundPosition = "bottom";
       uploadCard.id = `${collection.collection_name.replaceAll(
         " ",
         "-"

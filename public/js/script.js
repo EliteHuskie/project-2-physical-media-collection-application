@@ -1,6 +1,8 @@
 // Pre-requisites for the search to function properly
 // const tmdbApiKey = process.env.tmdbApiKey;
 // const googleApiKey = process.env.googleApiKey;
+const tmdbApiKey = "818371936113359a4fd88312064667b0";
+const googleApiKey = "AIzaSyCG-nyR7-vk8JJ1_jtKuGoedYTpx9aE2kI";
 
 // Function to search for the Movies + TV Shows that a user searches for
 async function searchMoviesAndTVShows() {
