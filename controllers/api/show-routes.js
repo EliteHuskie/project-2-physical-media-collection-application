@@ -20,6 +20,7 @@ router.get("/:type/:query", async (req, res) => {
       res
         .status(404)
         .json({ message: `No Show found by: ${req.params.query}` });
+      return;
     }
 
     res.status(200).json(dbShowData);
@@ -36,6 +37,7 @@ router.get("/", async (req, res) => {
 
     if (!dbShowData) {
       res.status(404).json({ message: "No Show data found." });
+      return;
     }
 
     res.status(200).json(dbShowData);
@@ -69,6 +71,7 @@ router.delete("/:id", async (req, res) => {
       res
         .status(404)
         .json({ message: `No Show found with id: ${req.params.id}` });
+      return;
     }
 
     res.status(200).json(dbShowData);
