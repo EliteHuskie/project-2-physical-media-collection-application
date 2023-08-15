@@ -1,7 +1,6 @@
 // -------- Functions -------- //
 
 function displayCollections(jsonData) {
-  const infoContainerEl = document.getElementById("infoContainer");
   // if no collections, display just text
   if (!jsonData.length) {
     const collectionContainerEl = document.createElement("div");
@@ -81,6 +80,7 @@ function displayCollections(jsonData) {
         " ",
         "-"
       )}-${cardCount}_front`;
+      card.dataset.dbId = collection.id;
 
       const cardBack = document.createElement("div");
       cardBack.className = "card card-back flex-row";
@@ -89,6 +89,7 @@ function displayCollections(jsonData) {
         " ",
         "-"
       )}-${cardCount}_back`;
+      cardBack.dataset.dbId = collection.id;
 
       const cardBody = document.createElement("div");
       cardBody.className = "card-body";
@@ -101,6 +102,18 @@ function displayCollections(jsonData) {
       creatorEl.innerHTML = `<i>${item.creator}</i>`;
       paragraphEl.innerHTML = item.overview;
       deleteBttn.innerHTML = "Remove";
+      deleteBttn.id = item.id;
+
+      //   add media type to data
+      let mediaType;
+      if (item.Movie_collection) {
+        mediaType = "movie";
+      } else if (item.Book_collection) {
+        mediaType = "book";
+      } else {
+        mediaType = "show";
+      }
+      deleteBttn.dataset.type = mediaType;
 
       cardBody.appendChild(titleEl);
       cardBody.appendChild(creatorEl);
@@ -184,6 +197,37 @@ async function deleteCollection(collId) {
     .catch((error) => console.log(error));
 }
 
+async function getCollectionMediaIds(collId) {
+  let ids;
+
+  await fetch(`/api/collections/${collId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(response);
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      const movies = data.Movies.map(({ id }) => id);
+      const shows = data.Shows.map(({ id }) => id);
+      const books = data.Books.map(({ id }) => id);
+
+      ids = {
+        movieIds: movies,
+        showIds: shows,
+        bookIds: books,
+      };
+    });
+
+  return ids;
+}
+
 // -------------------- //
 
 // Load user's collections on login
@@ -256,6 +300,7 @@ saveCollectionBttn.addEventListener("click", async (event) => {
 
 // Show card info on click or add card
 const collectionsContainer = document.getElementById("collectionsContainer");
+const infoContainerEl = document.getElementById("infoContainer");
 
 collectionsContainer.addEventListener("click", (event) => {
   // if placeholder card was clicked, switch to search page
@@ -297,6 +342,42 @@ collectionsContainer.addEventListener("click", (event) => {
     clickedCardOpposite.style.display = "none";
   }
   return;
+});
+
+// Remove a card from collection
+infoContainerEl.addEventListener("click", async (event) => {
+  if (event.target.tagName === "BUTTON") {
+    const collectionId = event.target.parentElement.parentElement.dataset.dbId;
+    const mediaId = event.target.id;
+    const mediaType = event.target.dataset.type;
+
+    const mediaIds = await getCollectionMediaIds(collectionId);
+
+    const oldIdArray = mediaIds[`${mediaType}Ids`];
+    const newIdArray = oldIdArray.filter((id) => id === mediaId);
+    mediaIds[`${mediaType}Ids`] = newIdArray;
+
+    fetch(`/api/collections/${collectionId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        mediaIds: mediaIds,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response);
+        }
+
+        window.location.href = "/home";
+        return response.json();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 });
 
 //about us button
