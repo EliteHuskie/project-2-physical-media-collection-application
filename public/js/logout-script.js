@@ -10,7 +10,7 @@ logoutButtonEl.addEventListener("click", async (event) => {
   });
 
   if (response.ok) {
-    window.location.href = "/login";
+    window.location.href = "/";
   } else {
     alert(`Error: ${response.status}\nAn error occurred during logout.`);
   }
