@@ -30,7 +30,7 @@ function displayCollections(jsonData) {
     collectionContainerEl.id = collection.id;
 
     const divEl = document.createElement("div");
-    const headlineContainer = document.createElement("h4");
+    const headlineContainer = document.createElement("h3");
     divEl.className = "Content";
     headlineContainer.innerHTML = collection.collection_name;
 
@@ -45,10 +45,14 @@ function displayCollections(jsonData) {
       const uploadCard = document.createElement("div");
       uploadCard.className = "card flex-row uploadCard";
       uploadCard.style = "height: 300; width:300";
-      uploadCard.style.backgroundImage = `url(${collection.image_url})`;
-      uploadCard.style.backgroundRepeat = "no-repeat";
-      uploadCard.style.backgroundSize = "contain";
-      uploadCard.style.backgroundPosition = "bottom";
+
+      const uploadImg = document.createElement("img");
+      uploadImg.src = collection.image_url;
+      uploadCard.appendChild(uploadImg);
+      //   uploadCard.style.backgroundImage = `url(${collection.image_url})`;
+      //   uploadCard.style.backgroundRepeat = "no-repeat";
+      //   uploadCard.style.backgroundSize = "contain";
+      //   uploadCard.style.backgroundPosition = "bottom";
       uploadCard.id = `${collection.collection_name.replaceAll(
         " ",
         "-"
@@ -57,10 +61,10 @@ function displayCollections(jsonData) {
       const textDiv = document.createElement("div");
       textDiv.className = "uploadCard-overlay";
 
-      const textEl = document.createElement("h5");
-      textEl.innerHTML = "My Collection";
+      const content =
+        "<h5>My Collection</h5><i class='fa fa-cloud-upload' style='font-size:36px'></i>";
 
-      textDiv.appendChild(textEl);
+      textDiv.innerHTML = content;
       uploadCard.appendChild(textDiv);
       cardsContainer.appendChild(uploadCard);
     }
@@ -83,7 +87,7 @@ function displayCollections(jsonData) {
       card.dataset.dbId = collection.id;
 
       const cardBack = document.createElement("div");
-      cardBack.className = "card card-back flex-row";
+      cardBack.className = "card card-back";
       cardBack.style.display = "none";
       cardBack.id = `${collection.collection_name.replaceAll(
         " ",
