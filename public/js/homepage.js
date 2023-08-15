@@ -30,7 +30,7 @@ function displayCollections(jsonData) {
     collectionContainerEl.id = collection.id;
 
     const divEl = document.createElement("div");
-    const headlineContainer = document.createElement("h4");
+    const headlineContainer = document.createElement("h3");
     divEl.className = "Content";
     headlineContainer.innerHTML = collection.collection_name;
 
@@ -45,10 +45,15 @@ function displayCollections(jsonData) {
       const uploadCard = document.createElement("div");
       uploadCard.className = "card flex-row uploadCard";
       uploadCard.style = "height: 300; width:300";
-      uploadCard.style.backgroundImage = `url(${collection.image_url})`;
-      uploadCard.style.backgroundRepeat = "no-repeat";
-      uploadCard.style.backgroundSize = "contain";
-      uploadCard.style.backgroundPosition = "bottom";
+
+      const uploadImg = document.createElement("img");
+      uploadImg.src = collection.image_url;
+      uploadImg.id = `upload-image-${collection.id}`;
+      uploadCard.appendChild(uploadImg);
+      //   uploadCard.style.backgroundImage = `url(${collection.image_url})`;
+      //   uploadCard.style.backgroundRepeat = "no-repeat";
+      //   uploadCard.style.backgroundSize = "contain";
+      //   uploadCard.style.backgroundPosition = "bottom";
       uploadCard.id = `${collection.collection_name.replaceAll(
         " ",
         "-"
@@ -56,11 +61,11 @@ function displayCollections(jsonData) {
 
       const textDiv = document.createElement("div");
       textDiv.className = "uploadCard-overlay";
+      textDiv.id = `upload-overlay-${collection.id}`;
 
-      const textEl = document.createElement("h5");
-      textEl.innerHTML = "My Collection";
+      const content = `<h5 id='upload-text-${collection.id}'>My Collection</h5><i id='upload-icon-${collection.id}' class='fa fa-cloud-upload' style='font-size:36px'></i>`;
 
-      textDiv.appendChild(textEl);
+      textDiv.innerHTML = content;
       uploadCard.appendChild(textDiv);
       cardsContainer.appendChild(uploadCard);
     }
@@ -83,7 +88,7 @@ function displayCollections(jsonData) {
       card.dataset.dbId = collection.id;
 
       const cardBack = document.createElement("div");
-      cardBack.className = "card card-back flex-row";
+      cardBack.className = "card card-back";
       cardBack.style.display = "none";
       cardBack.id = `${collection.collection_name.replaceAll(
         " ",
@@ -240,6 +245,8 @@ fetch("/api/collections", {
   .then((response) => response.json())
   .then((data) => displayCollections(data));
 
+// ------ Event Listeners ------ //
+
 // Create a collection
 const collectionNameInputEl = document.getElementById("newCollectionName");
 const saveCollectionBttn = document.getElementById("saveNewCollection");
@@ -303,10 +310,12 @@ const collectionsContainer = document.getElementById("collectionsContainer");
 const infoContainerEl = document.getElementById("infoContainer");
 
 collectionsContainer.addEventListener("click", (event) => {
+  console.log(event.target);
   // if placeholder card was clicked, switch to search page
   if (event.target.classList[0] === "placeholder-card") {
     localStorage.setItem("collectionClicked", event.target.id);
     window.location.href = "/results";
+
     // if delete card was clicked, delete collection
   } else if (
     event.target.classList[0] === "delete-card" ||
@@ -319,6 +328,29 @@ collectionsContainer.addEventListener("click", (event) => {
           : event.target.parentElement;
       deleteCollection(cardEl.id);
     }
+    return;
+
+    // if upload image card clicked, trigger update image popup
+  } else if (event.target.id.includes("upload")) {
+    // store info
+    let cardEl = event.target.parentElement;
+    if (!cardEl.id.includes("front")) {
+      cardEl = cardEl.parentElement;
+    } else if (!cardEl.id.includes("fornt")) {
+      cardEl = cardEl.parentElement;
+    } else if (!cardEl.id.includes("font")) {
+      cardEl = cardEl.parentElement;
+    }
+
+    const collectionName = cardEl.id.split("-0")[0];
+    const collectionId = event.target.id.split("-")[2];
+    localStorage.setItem(
+      "uploadImg-collectionInfo",
+      JSON.stringify({ id: collectionId, name: collectionName })
+    );
+
+    const editUploadImage = document.getElementById("editCollection");
+    editUploadImage.click();
     return;
   }
 
@@ -379,6 +411,46 @@ infoContainerEl.addEventListener("click", async (event) => {
       });
   }
 });
+
+// Change uploaded image listener
+const updateImageBttn = document.getElementById("saveUpdatedCollection");
+
+updateImageBttn.addEventListener("click", (event) => {
+  // Get info from storage
+  collectionInfo = JSON.parse(localStorage.getItem("uploadImg-collectionInfo"));
+
+  const newImg = document.getElementById("updateCollectionImage").files[0];
+
+  const imgReader = new FileReader();
+  imgReader.readAsDataURL(newImg);
+
+  // convert uploaded image to a data url
+  imgReader.addEventListener("load", async () => {
+    const imgUrl = await uploadToCloudinary(
+      imgReader.result,
+      collectionInfo.name
+    );
+
+    // create the collection
+    fetch(`/api/collections/${collectionInfo.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        image_url: `${imgUrl}`,
+      }),
+    }).then((response) => {
+      if (!response.ok) {
+        console.log(response);
+        throw new Error(response);
+      }
+      window.location.href = "/home";
+    });
+  });
+});
+
+// ------------------------- //
 
 //about us button
 const popoverTriggerList = document.querySelectorAll(

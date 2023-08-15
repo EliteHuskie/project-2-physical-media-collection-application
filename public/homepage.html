@@ -33,7 +33,7 @@
         <div class="header-title">
           <h1>MyTimeFillers.com</h1>
         </div>
-        <div class="header-box gap-2 justify-content-md-end">
+        <div class="header-box gap-2 justify-content-end">
           <!-- add a media menu -->
           <div>
             <button
@@ -215,7 +215,12 @@
                 >
               </li>
               <li>
-                <a class="dropdown-item" id="editCollection" href="#"
+                <a
+                  class="dropdown-item"
+                  id="editCollection"
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#editCollectionForm"
                   >Edit a collection</a
                 >
               </li>
@@ -273,16 +278,57 @@
               </div>
             </div>
           </div>
+          <!--  Edit a collection dialog-->
           <div
             class="modal fade"
-            id="createCollectionDone"
+            id="editCollectionForm"
+            style="background-color: whitesmoke"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <!-- header -->
+                <div class="modal-header">
+                  <h3 style="color: blue">Upload a new image</h3>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                  ></button>
+                </div>
+                <!-- body -->
+                <div class="modal-body">
+                  <form action="">
+                    <label for="" style="color: blue">Image</label>
+                    <input
+                      type="file"
+                      class="collection form-control"
+                      id="updateCollectionImage"
+                      accept="image/*"
+                    />
+                  </form>
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    data-bs-toggle="modal"
+                    data-bs-target="#updatedCollectionDone"
+                    id="saveUpdatedCollection"
+                  >
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="modal fade"
+            id="updatedCollectionDone"
             style="background-color: whitesmoke"
           >
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
                   <p style="color: black">
-                    You have created a collection successfully!
+                    You have updated your image successfully!
                   </p>
                   <button
                     type="button"
@@ -471,48 +517,17 @@
           </div>
         </div>
       </header>
-      <!-- Search bar/All media -->
-      <!-- <nav class="input-group w-50 position-relative search-bar">
-        <form
-          class="container-fluid input-group position-absolute top-50 start-50"
-          action="/results"
-          method="get"
-        >
-          <div class="input-group">
-            <button class="btn btn-outline-success" type="search">
-              All media
-            </button>
-            <button
-              id="searchButton"
-              class="btn btn-outline-success"
-              type="button"
-            >
-              Search
-            </button>
-            <input
-              type="text"
-              class="form-control"
-              id="searchInput"
-              name="q"
-              placeholder="Input a book/movie/TV show"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-            />
-            <input
-              type="radio"
-              name="searchType"
-              value="moviesAndTVShows"
-              checked
-            />
-            Movies & TV Shows
-            <input type="radio" name="searchType" value="books" /> Books
-          </div>
-        </form>
-      </nav> -->
+
       <!-- My collection container -->
       <div style="display: flex">
-        <div id="collectionsContainer"></div>
-        <div id="infoContainer"></div>
+        <div
+          id="collectionsContainer"
+          class="container text-center row justify-content-center gap-3"
+        ></div>
+        <div
+          id="infoContainer"
+          class="container column justify-content-center"
+        ></div>
       </div>
       <footer>
         <div class="footer_bar">

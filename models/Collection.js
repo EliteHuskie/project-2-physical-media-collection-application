@@ -19,6 +19,8 @@ Collection.init(
     image_url: {
       type: DataTypes.STRING,
       allowNull: true,
+      defaultValue:
+        "https://res.cloudinary.com/media-collection-cloud/image/upload/v1691532209/sarah-test/test%20collection.png",
     },
     user_id: {
       type: DataTypes.INTEGER,
