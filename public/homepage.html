@@ -215,7 +215,12 @@
                 >
               </li>
               <li>
-                <a class="dropdown-item" id="editCollection" href="#"
+                <a
+                  class="dropdown-item"
+                  id="editCollection"
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#editCollectionForm"
                   >Edit a collection</a
                 >
               </li>
@@ -273,16 +278,57 @@
               </div>
             </div>
           </div>
+          <!--  Edit a collection dialog-->
           <div
             class="modal fade"
-            id="createCollectionDone"
+            id="editCollectionForm"
+            style="background-color: whitesmoke"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <!-- header -->
+                <div class="modal-header">
+                  <h3 style="color: blue">Upload a new image</h3>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                  ></button>
+                </div>
+                <!-- body -->
+                <div class="modal-body">
+                  <form action="">
+                    <label for="" style="color: blue">Image</label>
+                    <input
+                      type="file"
+                      class="collection form-control"
+                      id="updateCollectionImage"
+                      accept="image/*"
+                    />
+                  </form>
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    data-bs-toggle="modal"
+                    data-bs-target="#updatedCollectionDone"
+                    id="saveUpdatedCollection"
+                  >
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="modal fade"
+            id="updatedCollectionDone"
             style="background-color: whitesmoke"
           >
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
                   <p style="color: black">
-                    You have created a collection successfully!
+                    You have updated your image successfully!
                   </p>
                   <button
                     type="button"
