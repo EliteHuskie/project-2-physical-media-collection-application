@@ -1,5 +1,4 @@
 // Pre-requisites for the search to function properly
-require("dotenv").config();
 const tmdbApiKey = process.env.tmdbApiKey;
 const googleApiKey = process.env.googleApiKey;
 
