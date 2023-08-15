@@ -381,6 +381,7 @@ infoContainerEl.addEventListener("click", async (event) => {
     const mediaType = event.target.dataset.type;
 
     const mediaIds = await getCollectionMediaIds(collectionId);
+    console.log(mediaIds);
 
     const oldIdArray = mediaIds[`${mediaType}Ids`];
     const newIdArray = oldIdArray.filter((id) => id === mediaId);

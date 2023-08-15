@@ -213,6 +213,37 @@ infoContainer.addEventListener("click", (event) => {
   }
 });
 
+async function getCollectionMediaIds(collId) {
+  let ids;
+
+  await fetch(`/api/collections/${collId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(response);
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      const movies = data.Movies.map(({ id }) => id);
+      const shows = data.Shows.map(({ id }) => id);
+      const books = data.Books.map(({ id }) => id);
+
+      ids = {
+        movieIds: movies,
+        showIds: shows,
+        bookIds: books,
+      };
+    });
+
+  return ids;
+}
+
 // Add media to collection
 async function addMediaToCollection(target) {
   const collectionId = localStorage.getItem("collectionClicked");
@@ -262,40 +293,39 @@ async function addMediaToCollection(target) {
         return responseData;
       }
 
-      let body;
+      // get media currently in Collection
+
+      const mediaIds = await getCollectionMediaIds(collectionId);
+
       if (model === "movies") {
-        body = {
-          mediaIds: {
-            movieIds: [mediaId],
-          },
-        };
+        mediaType = "movie";
       } else if (model === "tvShows") {
-        body = {
-          mediaIds: {
-            showIds: [mediaId],
-          },
-        };
+        mediaType = "show";
       } else {
-        body = {
-          mediaIds: {
-            bookIds: [mediaId],
-          },
-        };
+        mediaType = "book";
       }
+
+      console.log(mediaIds);
+      // update list of items in collection
+      mediaIds[`${mediaType}Ids`].push([mediaId]);
+      console.log(mediaIds);
 
       fetch(`/api/collections/${collectionId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify({
+          mediaIds: mediaIds,
+        }),
       }).then((response) => {
+        console.log(response);
         if (!response.ok) {
           console.log(response);
           return;
         }
 
-        window.location.href = "/home";
+        // window.location.href = "/home";
       });
     })
     .catch((error) => {
