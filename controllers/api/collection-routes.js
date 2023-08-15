@@ -31,6 +31,7 @@ router.get("/", async (req, res) => {
         message:
           "You have no collections. Create a new collection by using the dropdown in the navigation.",
       });
+      return;
     }
 
     res.status(200).json(dbCollectionData);
@@ -52,6 +53,7 @@ router.get("/:id", async (req, res) => {
       res
         .status(404)
         .json({ message: `No collection found with id: ${req.params.id}` });
+      return;
     }
 
     res.status(200).json(dbCollectionData);
@@ -245,7 +247,7 @@ router.put("/:id", async (req, res) => {
         }
       }
 
-      return res.status(200).json(collection);
+      res.status(200).json(collection);
     })
     .catch((error) => {
       console.log(error);
@@ -266,6 +268,7 @@ router.delete("/:id", async (req, res) => {
       res
         .status(404)
         .json({ message: `No collection found with id: ${req.params.id}` });
+      return;
     }
 
     res.status(200).json(dbCollectionData);

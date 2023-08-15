@@ -20,6 +20,7 @@ router.get("/:type/:query", async (req, res) => {
       res
         .status(404)
         .json({ message: `No Book found by: ${req.params.query}` });
+      return;
     }
 
     res.status(200).json(dbBookData);
@@ -36,6 +37,7 @@ router.get("/", async (req, res) => {
 
     if (!dbBookData) {
       res.status(404).json({ message: "No Book data found." });
+      return;
     }
 
     res.status(200).json(dbBookData);
@@ -69,6 +71,7 @@ router.delete("/:id", async (req, res) => {
       res
         .status(404)
         .json({ message: `No Book found with id: ${req.params.id}` });
+      return;
     }
 
     res.status(200).json(dbBookData);
