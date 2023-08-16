@@ -7,18 +7,20 @@
 1. [Description](#description)
 2. [Usage](#usage)
 
-3. [Installation](#installation)
-4. [Contributing](#contributing)
+3. [Technologies](#technologies)
 
-5. [Tests](#tests)
+4. [Installation](#installation)
+5. [Contributing](#contributing)
 
-6. [License](#license)
+6. [Tests](#tests)
 
-7. [Questions](#questions)
+7. [License](#license)
+
+8. [Questions](#questions)
 
 ## Description
 
-Physical Media Collection of Books, Movies and TV Shows
+Physical Media Collection application that utilizes a website which users can create their own personal collections consisting of favorite movies, tv shows and books.
 
 ## Usage
 
@@ -78,6 +80,22 @@ To log out, navigate to the account dropdown with the person icon and select "si
 
 Users can create, update and delete collections of Books, Movies and TV Shows they have in their own collection
 
+## Technologies
+
+• Used the cloudinary sdk to upload an image url or buffer/bite file to cloudinary
+
+• Cloudinary SDK needed to be configured with api keys & secrets
+
+• Receives the secure image url in the response
+
+• Secure url is then added to the "image_url" field in the associated collection
+
+https://gist.github.com/Maqsim/857a14a4909607be13d6810540d1b04f
+
+https://www.webmound.com/convert-images-data-urls-javascript/
+
+https://www.w3schools.com/tags/att_input_accept.asp
+
 ## Installation
 
 Not Applicable at this time
@@ -88,7 +106,11 @@ Not Applicable at this time
 
 ## Tests
 
-Will be added at later date
+Register user and login through index (Logout button is available once logged in as well)
+
+Creating collections, adding image to those collections and then media to correspond (Movies, TV Shows and Books) which is done via the search-result page.
+
+You can also delete collections as needed or individual media items.
 
 ## License
 
